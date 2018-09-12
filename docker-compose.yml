@@ -1,0 +1,74 @@
+# This file is used as a template for ./cx init
+# The "image" option always needs to be right after the service name. Otherwise
+# ./cx will not be able to re-extract values from the parsed file.
+version: '2'
+services:
+  web:
+    image: "cloudrexx/web:PHP5.3-with-mysql"
+    hostname: "programming.lvh.me"
+    volumes:
+      - .:/var/www/html
+    environment:
+      - VIRTUAL_HOST=programming.lvh.me
+      - HTTPS_METHOD=noredirect
+    restart: always
+    depends_on:
+      - db
+      - usercache
+    networks:
+      - front-end
+      - back-end
+  db:
+    image: "mariadb:10.1"
+    command: --sql-mode="NO_ENGINE_SUBSTITUTION,NO_AUTO_VALUE_ON_ZERO" --character-set-server=utf8 --collation-server=utf8_general_ci
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./tmp/db:/tmp/import
+    networks:
+      - back-end
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=dev
+    restart: always
+  mail:
+    image: mailhog/mailhog
+    hostname: "mail.programming.lvh.me"
+    user: root
+    environment:
+      - MH_SMTP_BIND_ADDR=0.0.0.0:25
+      - MH_API_BIND_ADDR=0.0.0.0:80
+      - MH_UI_BIND_ADDR=0.0.0.0:80
+      - VIRTUAL_HOST=mail.programming.lvh.me
+    restart: always
+    expose:
+      - 80
+    networks:
+      - front-end
+      - back-end
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    hostname: "phpma.programming.lvh.me"
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=db
+      - PMA_USER=root
+      - PMA_PASSWORD=123456
+      - VIRTUAL_HOST=phpma.programming.lvh.me
+    networks:
+      - front-end
+      - back-end
+    depends_on:
+      - db
+    restart: always
+  usercache:
+    image: "memcached"
+    restart: always
+    networks:
+      - back-end
+networks:
+  front-end:
+    external:
+      name: nginx-proxy
+  back-end:
+volumes:
+  db-data:

@@ -1,0 +1,56 @@
+@font-face {
+    font-family: baerley;
+    src: url(/themes/fonts/Bearley/2Bearley/Bearley.ttf);
+}
+
+@font-face {
+    font-family: carvino;
+    src: url(/themes/fonts/Carvino/Carvino.ttf);
+}
+
+@font-face {
+    font-family: cupcakia;
+    src: url(/themes/fonts/Cupcakia/Cupcakia.ttf);
+}
+
+@font-face {
+    font-family: echizen;
+    src: url(/themes/fonts/Echizen/2Echizen/Echizen.ttf);
+}
+@font-face {
+    font-family: fantastic;
+    src: url(/themes/fonts/Fantastic/Fantastic.ttf);
+}
+@font-face {
+    font-family: marseline;
+    src: url(/themes/fonts/Marseline/Marseline.ttf);
+}
+@font-face {
+    font-family: forestelly;
+    src: url(/themes/fonts/Forestelly/2Forestelly/Forestelly.ttf);
+}
+@font-face {
+    font-family: forestellyBold;
+    src: url(/themes/fonts/Forestelly/ForestellyBold/ForestellyBold.ttf);
+}
+@font-face {
+    font-family: forestellySwashes;
+    src: url(/themes/fonts/Forestelly/ForestellySwashes/ForestellySwashes.ttf);
+}
+@font-face {
+    font-family: zallord;
+    src: url(/themes/fonts/Zallord/Zallord.ttf);
+}
+
+@font-face {
+    font-family: forward;
+    src: url(/themes/fonts/Forward/Forward-Rough.otf) format("opentype");
+}
+@font-face {
+    font-family: modern;
+    src: url(/themes/fonts/ModernSans/ModernSans-Light.otf) format("opentype");
+}
+@font-face {
+    font-family: langdon;
+    src: url(/themes/fonts/Langdon/Langdon.otf) format("opentype");
+}
