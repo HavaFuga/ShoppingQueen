@@ -44,17 +44,19 @@ echo '<!DOCTYPE html>
                                             <div class="shadow"><img class="fa" src="/themes/images/icons/Orion_royal.png"></div>
                                         </div>
                                     </li>
-                                    ';
-                                    if (!isset($_SESSION['user'])) {
-                                        echo '
-                                            <li class="level-1">
+                                    <li class="level-1">
+                                            <a class="level-1" href="/core/Access/View/login_view.php" target="_self">Login</a>
+                                            <div class="c7n-icon" onclick="location.href=\'/core/Access/View/login_view.php\'">
+                                                <div class="shadow"><img class="fa" src="/themes/images/icons/Orion_back-arrow.png"></div>
+                                            </div>
+                                    </li>
+                                    <li class="level-1">
                                             <a class="level-1" href="/core/Access/View/login_view.php" target="_self">Logout</a>
                                             <div class="c7n-icon" onclick="location.href=\'/core/Access/View/login_view.php\'">
                                                 <div class="shadow"><img class="fa" src="/themes/images/icons/Orion_back-arrow.png"></div>
                                             </div>
-                                            </li>';
-                                         }
-                                echo '</ul>  
+                                    </li>
+                                </ul>  
                             </nav>   
                     </div>      
                 </header>

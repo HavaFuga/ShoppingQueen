@@ -16,14 +16,12 @@ $return =$shoppinglistController->getAll();
 echo '    <h1 class="d-none title-take">Shoppinglists</h1>';
 echo '<div class="row">';
 foreach ($return as $list) {
-    echo '<div class="col-sm boxes">
-        <a href="/application/ShoppingQueen/View/detail_view.php?sid=' . $list[0] .'">
+    echo '<div class="col-sm"><a href="/application/ShoppingQueen/View/detail_view.php?sid=' . $list[0] .'"><div class="col-sm boxes">
         <div class="color-boxes">
         <h2>' . $list[1]; if (!empty($list[3])){ echo ' - CHF' . $list[3];}
         echo '</h2></div>' .
         $list[2] . ', ' . $list[4] .'
-        </a>
-        </div>';
+        </div></a></div>';
 }
 echo '</div>';
 include $_SERVER['DOCUMENT_ROOT'] . '/themes/footer.php';

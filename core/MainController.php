@@ -11,7 +11,7 @@ include 'Controller/SuperController.php';
 class MainController extends Controller\SuperController
 {
     function loadIndexSite(){
-        $this->goToSite('/core/Access/View/login_view.php');
+        $this->goToSite('/themes/home.php');
     }
 }
 
