@@ -16,22 +16,20 @@ include $_SERVER['DOCUMENT_ROOT'] . '/themes/header.php';
 
 //get detail info from shoppinglist
 $sid = $_GET['sid'];
-$return =$shoppinglistController->getAll($sid);
+$return =$shoppinglistController->getOne($sid);
+echo $return[0][1];
 
 //get products
-$products = $productController->getAll();
+$products = $productController->getAll($sid);
 
 
-echo '<h1 class="d-none title-take">Login</h1>
-    <div class="col-sm boxes">
-        <div class="color-boxes">
-        <h2>' . $return[0][1]; if (!empty($return[0][3])){ echo ' - CHF' . $return[0][3];}
-        echo '</h2></div>' .
-            $return[0][2] . ', ' . $return[0][4] .'<br>';
+echo '<h1 class="d-none title-take">' . $return[1] . '</h1>';
+if (isset($return[3])){ echo '<h2>CHF ' . $return[3] . '</h2>';}
+        echo '<h3>' . $return[2] . ', ' . $return[4] .' </h3>
+        <ul class="products">';
         foreach ($products as $product){
-            echo $product[0] . '<br>';
+            echo '<li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product[0] . '</li>';
         }
-    echo '</div>';
-
+        echo '</ul>';
 include $_SERVER['DOCUMENT_ROOT'] . '/themes/footer.php';
 ob_end_flush();

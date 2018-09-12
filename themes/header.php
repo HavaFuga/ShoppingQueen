@@ -17,6 +17,8 @@ echo '<!DOCTYPE html>
               <meta name="description" content="">
               <meta name="viewport" content="width=device-width, initial-scale=1">
               
+              <!--Favicon-->
+              <link rel="shortcut icon" type="image/png" href="/themes/images/favicon.ico"/>
               
               <!--Fonts-->
               <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300" rel="stylesheet">
@@ -32,12 +34,12 @@ echo '<!DOCTYPE html>
             <body>
                 <header>
                     <div class="container">      
-                        <div class="c7n-logo"><a href="/application/ShoppingQueen/View/overview_view.php">
+                        <div class="c7n-logo"><a href="/themes/home.php">
                             <img src="/themes/images/logo/logo_white_small.png" /> </a></div>
                             <nav id="clx-dropdown-navigation">
                                 <ul>
                                     <li class="level-1">
-                                        <a class="level-1" href="/application/ShoppingQueen/View/overview_view.php" target="_self">Home</a>
+                                        <a class="level-1" href="/application/ShoppingQueen/View/overview_view.php" target="_self">Shoppinglists</a>
                                         <div class="c7n-icon" onclick="location.href=\'/application/ShoppingQueen/View/overview_view.php\'">
                                             <div class="shadow"><img class="fa" src="/themes/images/icons/Orion_royal.png"></div>
                                         </div>
@@ -58,7 +60,7 @@ echo '<!DOCTYPE html>
                 </header>
                 <section id="c7n-slider" class="c7n-small">
                     <div class="c7n-slide">  
-                        <img src="/themes/images/pineapple.jpg" />  
+                        <img src="/themes/images/denim-jeans.jpg" />  
                     </div>
                     <div class="c7n-intro">
                         <h1>Title</h1>  

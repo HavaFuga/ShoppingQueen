@@ -38,7 +38,7 @@ class ShoppinglistController extends \core\Controller\SuperController
                 $conn = $this->connectToDB();
                 $stmt = $conn->prepare('SELECT s.id, s.name, s.date, s.cost, u.name 
                                                   FROM Shoppinglist AS s, User AS u 
-                                                  WHERE s.uid = u.id AND s.id =' . $id .';');
+                                                  WHERE s.uid = u.id AND s.id = ' . $id .';');
                 $stmt->execute();
 
                 // set the resulting array to associative
