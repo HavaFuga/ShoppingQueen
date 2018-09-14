@@ -8,8 +8,9 @@ include $_SERVER['DOCUMENT_ROOT'] . '/themes/header.php';
 if (isset($_SESSION['user'])) {
     // already logged in
     echo 'You\'re already logged in';
-} else {
-    // not logged in
+} else {// not logged in
+
+    //login form
     echo '    <h1 class="d-none title-take">Login</h1>
               <form method="post" action="">
               E-Mail:<br>

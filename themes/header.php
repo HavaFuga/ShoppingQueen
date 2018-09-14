@@ -56,6 +56,12 @@ echo '<!DOCTYPE html>
                                                 <div class="shadow"><img class="fa" src="/themes/images/icons/Orion_back-arrow.png"></div>
                                             </div>
                                     </li>
+                                    <li class="level-1">
+                                            <a class="level-1" href="/core/Access/View/login_view.php" target="_self">Register</a>
+                                            <div class="c7n-icon" onclick="location.href=\'/core/Access/View/register_view.php\'">
+                                                <div class="shadow"><img class="fa" src="/themes/images/icons/Orion_add-user.png"></div>
+                                            </div>
+                                    </li>
                                 </ul>  
                             </nav>   
                     </div>      

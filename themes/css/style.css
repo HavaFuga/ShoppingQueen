@@ -171,6 +171,9 @@ header.c7n-small {
     text-align: center;
     width: 90%;
 }
+.c7n-intro.intro-home {
+     top: 50%;
+ }
 
 .c7n-intro h1 {
     font-size: 7.4em;
@@ -210,6 +213,9 @@ header.c7n-small {
 @media (min-width: 1200px) {
     #c7n-slider.c7n-small .c7n-slide {
         height: 550px;
+    }
+    #c7n-slider.c7n-small .c7n-slide.slide-home{
+        height: 1045px;
     }
 }
 
