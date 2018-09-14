@@ -37,5 +37,12 @@ echo ($_SESSION['user']);
         }
     }
 
+$_SESSION['user']='harry';
+    echo $_SESSION['user'];
+
+
+
+
+
 include $_SERVER['DOCUMENT_ROOT'] . '/themes/footer.php';
 ob_end_flush();

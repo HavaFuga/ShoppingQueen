@@ -11,7 +11,7 @@ include 'Controller/SuperController.php';
 class MainController extends Controller\SuperController
 {
     function loadIndexSite(){
-        $this->goToSite('/themes/home.php');
+        $this->goToSite('/var/www/html/themes/home.html');
     }
 }
 

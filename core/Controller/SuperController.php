@@ -15,14 +15,15 @@ include_once __DIR__ . '/../Model/SuperModel.php';
 
 
 $model = new \core\Model\SuperModel();
-$view = new \core\View\SuperView();
 $link = string;
 
 class SuperController
 {
 
     function goToSite($link){
-            header('LOCATION: ' . $link);
+        $view = new \core\View\SuperView();
+        $view->render($link);
+
     }
 
     function connectToDB(){
