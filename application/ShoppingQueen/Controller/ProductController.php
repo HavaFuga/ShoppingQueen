@@ -6,14 +6,16 @@
  * Time: 15:41
  */
 
-namespace core\Access\Controller;
-
-include_once $_SERVER['DOCUMENT_ROOT'] . '/core/Controller/SuperController.php';
 namespace application\ShoppingQueen\Controller;
 
+include_once __DIR__ . '/../../../core/Controller/SuperController.php';
+include_once __DIR__ . '/../View/ProductView.php';
+
+$action = $_GET['act'];
 
 class ProductController extends \core\Controller\SuperController
 {
+    //gets all Products
     function getAll($id){
         if (!$this->connectToDB()){
             die('DB Connection error. ProductController.php');
@@ -35,4 +37,26 @@ class ProductController extends \core\Controller\SuperController
         }
     }
 
-}
+    //creates overview
+    function overview(){
+        $productView = new \application\ShoppingQueen\View\ProductView();
+        $allProducts = $this->getAll();
+        $viewAll = $productView->viewAll($allProducts);
+        $this->printAll($viewAll);
+    }
+
+    protected $overview;
+    function printAll($viewAll) {
+        //render products in overview
+        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_products_view.html');
+        $this->overview = str_replace('{OVERVIEW_PRODUCTS}', $viewAll, $this->overview);
+        //render overview in index
+        $this->goToSite($this->overview);
+    }
+}/*
+$productController = new ProductController();
+if ($action == 'detail'){
+    $productController->detail();
+}else{
+    $productController->overview();
+}*/

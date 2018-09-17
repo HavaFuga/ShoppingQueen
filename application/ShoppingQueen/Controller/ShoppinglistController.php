@@ -9,6 +9,11 @@ namespace application\ShoppingQueen\Controller;
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once __DIR__ . '/../View/ShoppinglistView.php';
+include_once __DIR__ . '/../Controller/ProductController.php';
+include_once __DIR__ . '/../View/ProductView.php';
+
+
+$action = $_GET['act'];
 
 class ShoppinglistController extends \core\Controller\SuperController
 {
@@ -56,6 +61,15 @@ class ShoppinglistController extends \core\Controller\SuperController
         }
     }
 
+    //creates overview
+    function overview(){
+        $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
+        $allShoppinglists = $this->getAll();
+        $viewAll = $shoppinglistView->viewAll($allShoppinglists);
+        $this->printAll($viewAll);
+
+    }
+
     //prints all Shoppinglists
     protected $overview;
     function printAll($viewAll) {
@@ -65,20 +79,38 @@ class ShoppinglistController extends \core\Controller\SuperController
         //render overview in index
         $this->goToSite($this->overview);
     }
-    /*protected $overview;
-    protected $overview2;
-    function printAll($viewAll) {
-        //render Shoppinglists in overview
-        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_view.html');
-        $this->overview = str_replace('{OVERVIEW_SHOPPINGLISTS}', $viewAll, $this->overview);
-        $this->overview2 = file_put_contents($this->overview2, $this->overview);
-        //render overview in index
-        $this->goToSite($this->overview2);
-    }*/
+
+    //creates detailview
+    function detail(){
+        $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
+        $productController = new \application\ShoppingQueen\Controller\ProductController();
+        $productView = new \application\ShoppingQueen\View\ProductView();
+        $id = $_GET['sid'];
+
+        //gets products
+        $products = $productController->getAll($id);
+        $allProducts = $productView->viewAll($products);
+
+        $oneShoppinglist = $this->getOne($id);
+        $viewOne = $shoppinglistView->viewOne($oneShoppinglist);
+        $this->printOne($viewOne, $allProducts);
+    }
+
+    //prints detailview from Shoppinglist with Products
+    function printOne($viewOne, $allProducts){
+        //render detail from Shoppinglist
+        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/detail_view.html');
+        $this->overview = str_replace('{DETAIL_CONTENT}', $viewOne, $this->overview);
+        $this->overview = str_replace('{DETAIL_PRODUCTS}', $allProducts, $this->overview);
+        //render Shoppinglist in index
+        $this->goToSite($this->overview);
+    }
 }
+
 $shoppinglistController = new ShoppinglistController();
-$allShoppinglists = $shoppinglistController->getAll();
-$shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
-$viewAll = $shoppinglistView->viewAll($allShoppinglists);
-$shoppinglistController->printAll($viewAll);
+if ($action == 'detail'){
+    $shoppinglistController->detail();
+}else{
+    $shoppinglistController->overview();
+}
 
