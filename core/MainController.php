@@ -10,11 +10,8 @@ include 'Controller/SuperController.php';
 
 class MainController extends Controller\SuperController
 {
-    function loadIndexSite(){
-        $this->goToSite('/var/www/html/themes/home.html');
-    }
 }
-
 $mainController = new MainController();
-$mainController->loadIndexSite();
+$mainController->goToSite('/var/www/html/themes/home.html');
+
 

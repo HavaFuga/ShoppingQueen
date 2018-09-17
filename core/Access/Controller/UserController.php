@@ -10,11 +10,6 @@ namespace application\ShoppingQueen\Controller;
 include_once __DIR__ . '/../../Controller/SuperController.php';
 include_once __DIR__ . '/../Model/User.php';
 
-$email = string;
-$password = $email = string;
-
-$user = new \core\Access\Model\User();
-
 class UserController extends \core\Controller\SuperController
 {
     //Check if User exists and if password is correct
@@ -50,11 +45,43 @@ class UserController extends \core\Controller\SuperController
             //Starts Login Session
             session_start();
             $_SESSION['user'] = $result[0][0];
-
-            $this->goToSite('/application/ShoppingQueen/View/overview_view.php');
+            $this->goToSite('/var/www/html/themes/home.html');
         }
-
     }
 
+
+    function logout(){
+        if (isset($_SESSION))
+        {
+            session_destroy();
+        }
+        $this->goToSite('/var/www/html/themes/home.html');
+    }
+
+    function login(){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+
+        //check Email
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            echo ('Invalid email format');
+        }else{
+            $this->checkInput($email, $password);
+        }
+    }
+}
+
+$userController = new UserController();
+$action = $_GET['act'];
+if ($action == 'login'){
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $userController->login();
+    }else{
+        $userController->goToSite('/var/www/html/core/Access/View/login_view.html');
+    }
+}elseif($action == 'logout'){
+    $userController->logout();
+}elseif ($action == 'register'){
+    $userController->goToSite('/var/www/html/core/Access/View/register_view.html');
 }
 

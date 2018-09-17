@@ -23,7 +23,6 @@ class SuperController
     function goToSite($link){
         $view = new \core\View\SuperView();
         $view->render($link);
-
     }
 
     function connectToDB(){
