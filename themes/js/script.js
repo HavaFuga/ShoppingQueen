@@ -5,5 +5,6 @@ $('document').ready(function(){
     $document_height = $( document ).height();
     if (document.getElementById('home')!=null){
         $('.c7n-slide').height($document_height);
+        document.getElementById('content').style.display = 'none';
     }
 });

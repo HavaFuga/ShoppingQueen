@@ -11,19 +11,38 @@ namespace application\ShoppingQueen\Controller;
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once __DIR__ . '/../View/ProductView.php';
 
-$action = $_GET['act'];
-
 class ProductController extends \core\Controller\SuperController
 {
-    //gets all Products
-    function getAll($id){
+    //gets all Products from Shoppinglist with id
+    function getAllFromShoppinglist($id){
         if (!$this->connectToDB()){
             die('DB Connection error. ProductController.php');
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT p.name FROM Product AS p, Shoppinglist_Product AS sp 
+                $stmt = $conn->prepare('SELECT p.id, p.name FROM Product AS p, Shoppinglist_Product AS sp 
                                                   WHERE sp.sid = ' . $id . ' AND p.id = sp.pid;');
+                $stmt->execute();
+
+                // set the resulting array to associative
+                $products = $stmt->fetchAll();
+                $conn = null;
+            }
+            catch(PDOException $e){
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            return $products;
+        }
+    }
+
+    //gets all Products
+    function getAll(){
+        if (!$this->connectToDB()){
+            die('DB Connection error. ProductController.php');
+        }else {
+            try{
+                $conn = $this->connectToDB();
+                $stmt = $conn->prepare('SELECT id, name FROM Product;');
                 $stmt->execute();
 
                 // set the resulting array to associative
@@ -39,6 +58,7 @@ class ProductController extends \core\Controller\SuperController
 
     //creates overview
     function overview(){
+        session_start();
         $productView = new \application\ShoppingQueen\View\ProductView();
         $allProducts = $this->getAll();
         $viewAll = $productView->viewAll($allProducts);
@@ -53,10 +73,4 @@ class ProductController extends \core\Controller\SuperController
         //render overview in index
         $this->goToSite($this->overview);
     }
-}/*
-$productController = new ProductController();
-if ($action == 'detail'){
-    $productController->detail();
-}else{
-    $productController->overview();
-}*/
+}

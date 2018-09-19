@@ -15,17 +15,23 @@ include_once __DIR__ . '/../Model/SuperModel.php';
 
 
 $model = new \core\Model\SuperModel();
-$link = string;
 
 class SuperController
 {
+
+    protected $connection;
 
     function goToSite($link){
         $view = new \core\View\SuperView();
         $view->render($link);
     }
 
-    function connectToDB(){
+    function connectToDB() {
+
+        if (!is_null($this->connection)) {
+            return $this->connection;
+        }
+
         $servername = 'db';
         $username = 'shoppingQueen';
         $password = 'Hallo123';
@@ -33,13 +39,13 @@ class SuperController
 
 
         try {
-            $conn = new PDO('mysql:host=' . $servername .';dbname=' . $dbname, $username , $password,
+            $connection = new PDO('mysql:host=' . $servername .';dbname=' . $dbname, $username , $password,
                 array("[PDO::MYSQL_ATTR_MULTI_STATEMENTS => false]"));
             // set the PDO error mode to exception
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             //echo 'Connected successfully';
-            $connection = $conn;
-            return $conn;
+            $this->connection = $connection;
+            return $this->connection;
         }
         catch(PDOException $e)
         {

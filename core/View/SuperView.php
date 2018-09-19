@@ -20,9 +20,11 @@ class SuperView
     //Fills Site Content
     function render($link) {
         $this->index = file_get_contents('/var/www/html/themes/index.html');
-
+        if (!headers_sent()) {
+            session_start();
+        }
         //Checks if User is logged in
-        echo 'session: ' . $_SESSION['user'];
+        //echo 'session: ' . $_SESSION['user'];
         if (!isset($_SESSION['user'])){
             $contentHeader = file_get_contents('/var/www/html/themes/header_public.html');
         }else{
@@ -34,6 +36,7 @@ class SuperView
         }else {
             $contentTemplate = $link;
         }
+
         $this->index = str_replace('{HEADER_HTML}', $contentHeader, $this->index);
         $this->index = str_replace('{CONTENT_HTML}', $contentTemplate, $this->index);
         echo $this->index;

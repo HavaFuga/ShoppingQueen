@@ -8,13 +8,7 @@
 
 namespace core\Access\Model;
 
-$name = string;
-$email = string;
-$password = string;
-$isAdmin = boolean;
 class User
 {
-    function User($name, $email, $password, $isAdmin){
-    }
 
 }
