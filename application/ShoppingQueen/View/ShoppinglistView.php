@@ -24,7 +24,7 @@ class ShoppinglistView extends SuperView
             $result .= '<nav id="clx-dropdown-navigation" class="add_new">
             <ul style="">
                 <li class="level-1" style="">
-                    <div class="c7n-icon" onclick="location.href=\'/application/ShoppingQueen/Controller/ShoppinglistController.php?act=create\'">
+                    <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists\'">
                         <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_add-circle.svg"></div>
                     </div>
                 </li>
@@ -34,7 +34,7 @@ class ShoppinglistView extends SuperView
         //create view for all shoppinglists
         foreach ($allShoppinglists as $list) {
             $viewAll_1 = '<div class="col-sm-4 boxes">
-                 <a href="/application/ShoppingQueen/Controller/ShoppinglistController.php?act=detail&sid=' . $list[0] .'">
+                 <a href="?link=shoppinglists&act=detail&id=' . $list[0] .'">
             <div class="color-boxes">
                 <h2>' . $list[1];
             if (!empty($list[3])) {
@@ -58,17 +58,17 @@ class ShoppinglistView extends SuperView
         $result='';
 
         //create icon for adding new list
-        session_start();
+        //session_start();
         if (isset($_SESSION['user'])) {
             $result .= '<nav id="clx-dropdown-navigation" class="add_new">
             <ul style="">
                 <li class="level-1" style="">
-                    <div class="c7n-icon" onclick="location.href=\'/application/ShoppingQueen/Controller/ShoppinglistController.php?act=edit&sid='. $oneShoppinglists[0] .'\'">
+                    <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists&act=edit&id='. $oneShoppinglists[0] .'\'">
                         <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_edit-window.svg"></div>
                     </div>
                 </li>
                 <li class="level-1" style="">
-                    <div class="c7n-icon" onclick="location.href=\'/application/ShoppingQueen/Controller/ShoppinglistController.php?act=delete&sid='. $oneShoppinglists[0] .'\'">
+                    <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists&act=delete&id='. $oneShoppinglists[0] .'\'">
                         <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_bin.svg"></div>
                     </div>
                 </li>
@@ -89,7 +89,7 @@ class ShoppinglistView extends SuperView
     function viewOneEdit($shoppinglist){
         $result = '<input type="text" name="name" placeholder="name" value="' . $shoppinglist[1] . '" required><br>
             Cost:<br>
-            CHF <input type="text" name="text" placeholder="" value="' . $shoppinglist[3] . '"><br><br>';
+            CHF <input type="text" name="cost" placeholder="" value="' . $shoppinglist[3] . '"><br><br>';
         return $result;
     }
 

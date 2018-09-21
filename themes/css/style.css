@@ -34,7 +34,7 @@ footer {
     width: 100%;
     border-top: 2px #cacaca solid;
     bottom: 0;
-    position:inherit;
+    position:fixed;
 }
 
 h1 {

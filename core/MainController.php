@@ -44,53 +44,70 @@ class MainController extends Controller\SuperController
 
 
     function lookWhereToGo($link){
-        if ($link == ''){
+        parse_str($link, $output);
+        //echo print_r($output, TRUE);
+
+        if (isset($output['/?link'])) {
+            $site = $output['/?link'];
+        }else{
+            $site = '';
+        }
+
+        //var_dump($site);die();
+        if (isset($output['act'])) {
+            $action = $output['act'];
+        }else{
+            $action = 'overview';
+        }
+
+        if (isset($output['id'])) {
+            $id = $output['id'];
+        }else{
+            $id = 0;
+        }
+
+        if ($site == ''){
             $this->goToSite('/var/www/html/themes/home.html');
-        }elseif ($link == 'shoppinglists'){
-            $this->lookWhereShoppinglist();
-        }elseif ($link == 'products'){
-            $this->lookWhereProducts();
-        }elseif ($link == 'user'){
-            $this->lookWhereUsers();
-        }elseif ($link == 'register'){
-            $this->goToSite('/application/ShoppingQueen/View/register_view.html');
-        }elseif ($link == 'shoppinglists'){
-            $this->goToSite('/application/ShoppingQueen/View/overview_view.html');
-        }elseif ($link == 'shoppinglists'){
-            $this->goToSite('/application/ShoppingQueen/View/overview_view.html');
-        }elseif ($link == 'shoppinglists'){
-            $this->goToSite('/application/ShoppingQueen/View/overview_view.html');
-        }elseif ($link == 'shoppinglists'){
-            $this->goToSite('/application/ShoppingQueen/View/overview_view.html');
+        }elseif ($site == 'shoppinglists'){
+            $this->lookWhereShoppinglist($action, $id);
+        }elseif ($site == 'products'){
+            $this->lookWhereProducts($action);
+        }elseif ($site == 'user'){
+            $this->lookWhereUsers($action);
         }
     }
 
-    function lookWhereShoppinglist(){
-        $action = $_GET['act'];
+    function lookWhereShoppinglist($action, $id){
         $shoppinglistController = $this->shoppinglistController;
+
         if ($action == 'detail'){
-            $shoppinglistController->detail();
+            $shoppinglistController->detail($id);
+
         }elseif ($action == 'create'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $shoppinglistController->create();
             }else{
                 $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html');
             }
+
         }elseif ($action == 'edit'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $shoppinglistController->edit();
+                $name = $_POST['name'];
+                $cost = $_POST['cost'];
+                $shoppinglistController->edit($id ,$name, $cost);
             }else{
-                $shoppinglistController->editview();
+                $shoppinglistController->editview($id);
             }
+
         }elseif ($action == 'delete'){
-            $shoppinglistController->delete();
-        }else{
+            $shoppinglistController->delete($id);
+
+        }elseif ($action == 'overview'){
             $shoppinglistController->overview();
         }
     }
 
-    function lookWhereProducts(){
-        $action = $_GET['act'];
+    function lookWhereProducts($action){
         $productController = $this->productController;
         if ($action == 'detail'){
             $productController->detail();

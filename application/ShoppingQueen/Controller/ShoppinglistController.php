@@ -81,11 +81,10 @@ class ShoppinglistController extends \core\Controller\SuperController
     }
 
     //creates detailview
-    function detail(){
+    function detail($id){
         $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
         $productController = new \application\ShoppingQueen\Controller\ProductController();
         $productView = new \application\ShoppingQueen\View\ProductView();
-        $id = $_GET['sid'];
 
         //gets products
         $products = $productController->getAllFromShoppinglist($id);
@@ -146,10 +145,7 @@ class ShoppinglistController extends \core\Controller\SuperController
     }
 
     //create a new Shoppinglist
-    function edit(){
-        $name = $_POST['name'];
-        $cost = $_POST['cost'];
-        $id = $_GET['sid'];
+    function edit($id, $name, $cost){
 
         //edit shoppinglist
         if (!$this->connectToDB()){
@@ -166,12 +162,11 @@ class ShoppinglistController extends \core\Controller\SuperController
             }
             $conn = null;
         }
-        header('Location: /application/ShoppingQueen/Controller/ShoppinglistController.php?act=detail&sid=' . $id);
+        header('Location: ?link=shoppinglists&act=detail&id=' . $id);
     }
 
     //gets informations from shoppinglist and opens edit site
-    function editview(){
-        $id = $_GET['sid'];
+    function editview($id){
         $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
         $productView = new \application\ShoppingQueen\View\ProductView();
         $productController = new \application\ShoppingQueen\Controller\ProductController();
@@ -185,8 +180,7 @@ class ShoppinglistController extends \core\Controller\SuperController
     }
 
     //deletes the selected list
-    function delete(){
-        $id = $_GET['sid'];
+    function delete($id){
         if (!$this->connectToDB()){
             die('DB Connection error. ShoppinglistController.php');
         }else {
@@ -201,6 +195,6 @@ class ShoppinglistController extends \core\Controller\SuperController
             }
             $conn = null;
         }
-        header('Location: /application/ShoppingQueen/Controller/ShoppinglistController.php');
+        header('Location: ?link=shoppinglists');
     }
 }
