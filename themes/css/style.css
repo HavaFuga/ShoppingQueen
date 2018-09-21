@@ -34,7 +34,7 @@ footer {
     width: 100%;
     border-top: 2px #cacaca solid;
     bottom: 0;
-    position:fixed;
+    position:inherit;
 }
 
 h1 {
@@ -114,6 +114,15 @@ header.c7n-search-open {
 header.c7n-small {
     background-color: rgba(20,20,20,0.7);
     border-bottom: 0px solid rgba(255,255,255,0);
+}
+
+.fa-plus{
+    font-size: 1.7rem;
+    color: #df9a91;
+}
+.fa-plus:hover{
+    font-size: 1.7rem;
+    color: #df9a91;
 }
 
 .c7n-logo {

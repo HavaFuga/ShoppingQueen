@@ -7,39 +7,52 @@
  */
 namespace core;
 use application\ShoppingQueen\Controller\ShoppinglistController;
+use application\ShoppingQueen\Model\Product;
+use application\ShoppingQueen\Model\Shoppinglist;
 use application\ShoppingQueen\View\ShoppinglistView;
 use application\ShoppingQueen\Controller\ProductController;
 use application\ShoppingQueen\View\ProductView;
 use core\Access\Controller\UserController;
+use core\Access\Model\User;
 use core\Access\View\UserView;
 
 
 include 'Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ShoppinglistController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
+include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ProductController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ProductView.php';
+include_once '/var/www/html/application/ShoppingQueen/Model/Product.php';
 include_once '/var/www/html/core/Access/Controller/UserController.php';
 include_once '/var/www/html/core/Access/View/UserView.php';
+include_once '/var/www/html/core/Access/Model/User.php';
 
 class MainController extends Controller\SuperController
 {
     protected $shoppinglistController;
     protected $shoppinglistView;
+    protected $shoppinglist;
     protected $productController;
     protected $productView;
+    protected $product;
     protected $userController;
     protected $userView;
+    protected $user;
 
 
     function __construct()
     {
         $this->shoppinglistController = new ShoppinglistController();
         $this->shoppinglistView = new ShoppinglistView();
+        $this->shoppinglist = new Shoppinglist();
         $this->productController = new ProductController();
         $this->productView = new ProductView();
+        $this->product = new Product();
         $this->userController = new UserController();
         $this->userView = new UserView();
+        $this->user = new User();
+
     }
 
 
@@ -56,49 +69,54 @@ class MainController extends Controller\SuperController
         //var_dump($site);die();
         if (isset($output['act'])) {
             $action = $output['act'];
-        }else{
-            $action = 'overview';
-        }
+        }else{$action = 'overview';}
 
         if (isset($output['id'])) {
             $id = $output['id'];
-        }else{
-            $id = 0;
-        }
+        }else{ $id = 0; }
+
+        if (isset($output['pid'])) {
+            $pid = $output['pid'];
+        }else{ $pid = 0; }
 
         if ($site == ''){
             $this->goToSite('/var/www/html/themes/home.html');
         }elseif ($site == 'shoppinglists'){
-            $this->lookWhereShoppinglist($action, $id);
+            $this->lookWhereShoppinglist($action, $id, $pid);
         }elseif ($site == 'products'){
-            $this->lookWhereProducts($action);
+            $this->lookWhereProducts($action, $id);
         }elseif ($site == 'user'){
             $this->lookWhereUsers($action);
         }
     }
 
-    function lookWhereShoppinglist($action, $id){
+    function lookWhereShoppinglist($action, $id, $pid){
         $shoppinglistController = $this->shoppinglistController;
+        $shoppinglist = $this->shoppinglist;
 
         if ($action == 'detail'){
-            $shoppinglistController->detail($id);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $shoppinglist->add($id, $pid);
+            }else{
+                $shoppinglistController->detail($id);
+            }
 
         }elseif ($action == 'create'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $shoppinglistController->create();
+                $shoppinglist->create();
             }else{
                 $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html');
             }
 
         }elseif ($action == 'edit'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $shoppinglistController->edit($id);
+                $shoppinglist->edit($id);
             }else{
                 $shoppinglistController->editview($id);
             }
 
         }elseif ($action == 'delete'){
-            $shoppinglistController->delete($id);
+            $shoppinglist->delete($id);
 
         }elseif ($action == 'overview'){
             $shoppinglistController->overview();
@@ -107,12 +125,23 @@ class MainController extends Controller\SuperController
 
     function lookWhereProducts($action, $id){
         $productController = $this->productController;
+        $product = $this->product;
         if ($action == 'detail'){
             $productController->detail($id);
         }elseif ($action == 'edit'){
-            $productController->edit($id);
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $product->edit($id);
+            }else{
+                $productController->editview($id);
+            }
         }elseif ($action == 'delete'){
-            $productController->delete($id);
+            $product->delete($id);
+        }elseif ($action == 'add'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $product->add();
+            }else{
+                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html');
+            }
         }
         else{
             $productController->overview();

@@ -78,7 +78,11 @@ class ShoppinglistView extends SuperView
         $viewAll_1 = '<h1 class="d-none title-take">' . $oneShoppinglists[1] . '</h1>';
         if (isset($oneShoppinglists[3])){ $viewAll_2 = '<h2>CHF ' . $oneShoppinglists[3] . '</h2>';}
         $viewAll_3 = '<h3>' . $oneShoppinglists[2] . ', ' . $oneShoppinglists[4] .' </h3>
-        <ul class="products">{DETAIL_PRODUCTS}</ul>';
+        <ul class="products">{DETAIL_PRODUCTS}</ul>
+        <select id="products">
+            <option value="">-</option>
+            {DETAIL_ADD_PRODUCTS}
+        </select> <a class="fa-plus" onclick="location.href=\'?link=shoppinglists&act=add&id='. $oneShoppinglists[0] . '&pid= \' + document.getElementById(\'products\').value + \'" ><i class="fas fa-plus"></i></a>';
 
         $result .= $viewAll_1 . $viewAll_2 . $viewAll_3;
         return $result;

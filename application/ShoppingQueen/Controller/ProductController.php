@@ -10,57 +10,17 @@ namespace application\ShoppingQueen\Controller;
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once __DIR__ . '/../View/ProductView.php';
+include_once __DIR__ . '/../Model/Product.php';
 
 class ProductController extends \core\Controller\SuperController
 {
-    //gets all Products from Shoppinglist with id
-    function getAllFromShoppinglist($id){
-        if (!$this->connectToDB()){
-            die('DB Connection error. ProductController.php');
-        }else {
-            try{
-                $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT p.id, p.name FROM Product AS p, Shoppinglist_Product AS sp 
-                                                  WHERE sp.sid = ' . $id . ' AND p.id = sp.pid;');
-                $stmt->execute();
-
-                // set the resulting array to associative
-                $products = $stmt->fetchAll();
-                $conn = null;
-            }
-            catch(PDOException $e){
-                echo 'Connection failed: ' . $e->getMessage();
-            }
-            return $products;
-        }
-    }
-
-    //gets all Products
-    function getAll(){
-        if (!$this->connectToDB()){
-            die('DB Connection error. ProductController.php');
-        }else {
-            try{
-                $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT id, name FROM Product;');
-                $stmt->execute();
-
-                // set the resulting array to associative
-                $products = $stmt->fetchAll();
-                $conn = null;
-            }
-            catch(PDOException $e){
-                echo 'Connection failed: ' . $e->getMessage();
-            }
-            return $products;
-        }
-    }
 
     //creates overview
     function overview(){
-        session_start();
+        //session_start();
+        $product = new \application\ShoppingQueen\Model\Product();
         $productView = new \application\ShoppingQueen\View\ProductView();
-        $allProducts = $this->getAll();
+        $allProducts = $product->getAll();
         $viewAll = $productView->viewAll($allProducts);
         $this->printAll($viewAll);
     }
@@ -75,9 +35,23 @@ class ProductController extends \core\Controller\SuperController
         $this->goToSite($this->overview);
     }
 
-    //edits the product
-    function edit($id){
-
+    //prints one products for editing
+    function printOneEdit($viewEdit){
+        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_product_view.html');
+        $this->overview = str_replace('{EDIT_CONTENT}', $viewEdit, $this->overview);
+        //render Shoppinglist in index
+        $this->goToSite($this->overview);
     }
+
+    //gets the view for edit
+    function editview($id){
+        $product = new \application\ShoppingQueen\Model\Product();
+        $productView = new \application\ShoppingQueen\View\ProductView();
+        $prod = $product->getOne($id);
+        $editProductView = $productView->viewEditProducts($prod);
+
+        $this->printOneEdit($editProductView);
+    }
+
 
 }

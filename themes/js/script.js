@@ -7,4 +7,7 @@ $('document').ready(function(){
         $('.c7n-slide').height($document_height);
         document.getElementById('content').style.display = 'none';
     }
+
+    $('#products').searchable();
+
 });

@@ -18,7 +18,7 @@ class ProductView
         session_start();
         if (isset($_SESSION['user'])){
             foreach ($products as $product) {
-                array_push($viewAll, '<a href="/application/ShoppingQueen/Controller/ProductController.php?act=detail&id=' . $product[0] . '">
+                array_push($viewAll, '<a href="?link=products">
                                                 <li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product[1] . '</li>
                                            </a>');
             }
@@ -79,5 +79,23 @@ class ProductView
             $result .= $view;
         }
         return $result;
+    }
+
+
+    //view for editing product
+    function viewEditProducts($product){
+        $result = '<input type="text" name="name" placeholder="name" value="' . $product[0][0] . '" required>';
+        return $result;
+    }
+
+    //view for selecting products
+    function viewSelect($allOtherProducts){
+        $allOthers = '';
+        $i = 0;
+        foreach ($allOtherProducts as $product){
+            $allOthers .= '<option value="' . $product[0] . '">' . $product[1] . '</option>';
+            $i + 1;
+        }
+        return $allOthers;
     }
 }
