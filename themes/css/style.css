@@ -42,6 +42,7 @@ h1 {
 }
 .h2, h2 {
     font-size: 4rem;
+    display: unset;
 }
 a{
     color: #212529;
@@ -51,7 +52,7 @@ a{
      color: #e9ecef;
  }
 .boxes:hover{
-    background-color: #DEAC2F;
+    background-color: #ac6b63;
 }
 .boxes:hover > a{
     color: #212529;
@@ -248,12 +249,12 @@ header.c7n-small {
     top: -10px;
 }
 #clx-dropdown-navigation.add_new ul li.level-1:hover > .c7n-icon .add_new_shadow{
-    background-color: #201A5675;
-    box-shadow: 0px 0px 20px 5px #201A569c;
+    background-color: #df9a9175;
+    box-shadow: 0px 0px 20px 5px #df9a919c;
 }
 #clx-dropdown-navigation.add_new ul li.level-1:hover > .c7n-icon .add_new_shadow .fa{
-    background-color: #201A56;
-    border: 1px solid #201A56;
+    background-color: #df9a91;
+    border: 1px solid #df9a91;
 }
 #clx-dropdown-navigation.add_new li.level-1 {
     min-width: 55px;
@@ -264,6 +265,13 @@ li.li_editProducts img {
 }
 li.li_editProducts {
     list-style: none;
+}
+
+.products_view{
+    width: 100%;
+}
+.products_view img, .products_view svg{
+    width: 50px;
 }
 
 @media (min-width: 576px) {

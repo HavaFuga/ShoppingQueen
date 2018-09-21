@@ -92,9 +92,7 @@ class MainController extends Controller\SuperController
 
         }elseif ($action == 'edit'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $name = $_POST['name'];
-                $cost = $_POST['cost'];
-                $shoppinglistController->edit($id ,$name, $cost);
+                $shoppinglistController->edit($id);
             }else{
                 $shoppinglistController->editview($id);
             }
@@ -107,11 +105,16 @@ class MainController extends Controller\SuperController
         }
     }
 
-    function lookWhereProducts($action){
+    function lookWhereProducts($action, $id){
         $productController = $this->productController;
         if ($action == 'detail'){
-            $productController->detail();
-        }else{
+            $productController->detail($id);
+        }elseif ($action == 'edit'){
+            $productController->edit($id);
+        }elseif ($action == 'delete'){
+            $productController->delete($id);
+        }
+        else{
             $productController->overview();
         }
     }

@@ -55,10 +55,25 @@ class ProductView
     function viewAll($products){
         $viewAll = array();
         $result = '';
+        $result .= '<nav id="clx-dropdown-navigation" class="add_new">
+            <ul style="">
+                <li class="level-1" style="">
+                    <div class="c7n-icon" onclick="location.href=\'?link=products&act=add\'">
+                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_add-circle.svg"></div>
+                    </div>
+                </li>
+            </ul>
+        </nav>';
         foreach ($products as $product) {
-            array_push($viewAll, '<a href="/application/ShoppingQueen/Controller/ProductController.php?act=detail&id="' . $product[0] . '">
-                                                <li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product[1] . '</li>
-                                           </a>');
+            array_push($viewAll, '<div class="products_view">
+                                                <h2>' . $product[1] . '</h2>
+                                                    <a class="" href="?link=products&act=edit&id=' . $product[0] . '">
+                                                        <img src="/themes/images/icons/Orion_edit-window_black.svg">
+                                                    </a> 
+                                                    <a class="" href="?link=products&act=delete&id=' . $product[0] . '">
+                                                        <img src="/themes/images/icons/Orion_bin_black.svg">
+                                                    </a>
+                                            </div>');
         }
         foreach ($viewAll as $view) {
             $result .= $view;

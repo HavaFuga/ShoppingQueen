@@ -65,6 +65,7 @@ class ProductController extends \core\Controller\SuperController
         $this->printAll($viewAll);
     }
 
+    //prints all products
     protected $overview;
     function printAll($viewAll) {
         //render products in overview
@@ -73,4 +74,10 @@ class ProductController extends \core\Controller\SuperController
         //render overview in index
         $this->goToSite($this->overview);
     }
+
+    //edits the product
+    function edit($id){
+
+    }
+
 }

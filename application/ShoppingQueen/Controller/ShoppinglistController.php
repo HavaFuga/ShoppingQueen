@@ -145,7 +145,9 @@ class ShoppinglistController extends \core\Controller\SuperController
     }
 
     //create a new Shoppinglist
-    function edit($id, $name, $cost){
+    function edit($id){
+        $name = $_POST['name'];
+        $cost = $_POST['cost'];
 
         //edit shoppinglist
         if (!$this->connectToDB()){
