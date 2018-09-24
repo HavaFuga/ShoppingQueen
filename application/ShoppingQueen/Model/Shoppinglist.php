@@ -60,8 +60,8 @@ class Shoppinglist extends SuperModel
     //creates a new Shoppinglist
     function create(){
         session_start();
-        $name = $_POST['name'];
-        $cost = $_POST['cost'];
+        $name = htmlspecialchars($_POST['name']);
+        $cost = htmlspecialchars($_POST['cost']);
         $id = $_SESSION['user'];
         $date = date("d.M.Y");
 
@@ -83,13 +83,13 @@ class Shoppinglist extends SuperModel
             }
         }
 
-        header('Location: /application/ShoppingQueen/Controller/ShoppinglistController.php');
+        header('Location: ?link=shoppinglists');
     }
 
     //updates a Shoppinglist
     function edit($id){
-        $name = $_POST['name'];
-        $cost = $_POST['cost'];
+        $name = htmlspecialchars($_POST['name']);
+        $cost = ($_POST['cost']);
 
         //edit shoppinglist
         if (!$this->connectToDB()){

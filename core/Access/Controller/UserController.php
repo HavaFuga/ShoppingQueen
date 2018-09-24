@@ -36,13 +36,13 @@ class UserController extends \core\Controller\SuperController
 
     //logs in the user
     function login(){
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
         $user = $this->user;
 
         //check Email and Input
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo ('Invalid email format');
+            $this->goToSite('/var/www/html/core/Access/View/login_view.html', 'Invalid email format');
         }else{
             $user->checkInputLogin($email, $password);
         }

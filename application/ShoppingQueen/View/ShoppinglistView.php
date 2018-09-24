@@ -24,7 +24,7 @@ class ShoppinglistView extends SuperView
             $result .= '<nav id="clx-dropdown-navigation" class="add_new">
             <ul style="">
                 <li class="level-1" style="">
-                    <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists\'">
+                    <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists&act=create\'">
                         <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_plus.svg"></div>
                     </div>
                 </li>

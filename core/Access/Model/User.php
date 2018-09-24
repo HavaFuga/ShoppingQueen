@@ -97,10 +97,10 @@ class User extends SuperModel
 
     //register a new user
     function register(){
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password = $_POST['password'];
-        $password2 = $_POST['password2'];
+        $name = htmlspecialchars($_POST['name']);
+        $email = htmlspecialchars($_POST['email']);
+        $password = htmlspecialchars($_POST['password']);
+        $password2 = htmlspecialchars($_POST['password2']);
 
         //check Email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {

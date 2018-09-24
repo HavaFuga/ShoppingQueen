@@ -18,7 +18,7 @@ class SuperView
 {
     protected $index;
     //Fills Site Content
-    function render($link) {
+    function render($link ,$alert_message) {
         $this->index = file_get_contents('/var/www/html/themes/index.html');
         if(!isset($_SESSION))
         {
@@ -38,9 +38,21 @@ class SuperView
             $contentTemplate = $link;
         }
 
+        if ($alert_message != ''){
+            $alert_box = file_get_contents('/var/www/html/themes/alert.html');
+            $this->index = str_replace('{ALERT}', $alert_box, $this->index);
+            $this->index = str_replace('{MESSAGE}', $alert_message, $this->index);
+        }else{
+            $this->index = str_replace('{ALERT}', '', $this->index);
+        }
+
         $this->index = str_replace('{HEADER_HTML}', $contentHeader, $this->index);
         $this->index = str_replace('{CONTENT_HTML}', $contentTemplate, $this->index);
         echo $this->index;
+    }
+
+    function alert($alert_message){
+
     }
 
     function getContent($link){

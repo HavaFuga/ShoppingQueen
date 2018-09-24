@@ -11,6 +11,7 @@ use PDO;
 
 use core\Model\SuperModel;
 use core\View\SuperView;
+include_once '/var/www/html/core/View/SuperView.php';
 
 class SuperController
 {
@@ -18,6 +19,11 @@ class SuperController
     protected $superModel;
 
     protected $connection;
+
+    function __construct()
+    {
+        $this->superView = new SuperView();
+    }
 
     //connect to DB
     function connectToDB() {
@@ -43,9 +49,15 @@ class SuperController
         }
     }
 
+    //sends an alert
+    function sendAlert($alert_message){
+        $view = new SuperView();
+        $view->alert($alert_message);
+    }
+
     //go to site with link
-    function goToSite($link){
-        $view = new \core\View\SuperView();
-        $view->render($link);
+    function goToSite($link, $alert_message ){
+        $view = new SuperView();
+        $view->render($link ,$alert_message);
     }
 }

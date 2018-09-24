@@ -76,7 +76,7 @@ class MainController extends Controller\SuperController
         }else{ $pid = 0; }
 
         if ($site == ''){
-            $this->goToSite('/var/www/html/themes/home.html');
+            $this->goToSite('/var/www/html/themes/home.html', '');
         }elseif ($site == 'shoppinglists'){
             $this->lookWhereShoppinglist($action, $id, $pid);
         }elseif ($site == 'products'){
@@ -92,7 +92,7 @@ class MainController extends Controller\SuperController
 
         if ($action == 'detail'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $pid = $_POST['products'];
+                $pid = htmlspecialchars($_POST['products']);
                 if ($pid == ''){
                     header('Location: ?link=shoppinglists&act=detail&id=' . $id);
                 }else{
@@ -107,7 +107,7 @@ class MainController extends Controller\SuperController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $shoppinglist->create();
             }else{
-                $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html');
+                $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html' , '');
             }
 
         }elseif ($action == 'edit'){
@@ -150,7 +150,7 @@ class MainController extends Controller\SuperController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $product->add();
             }else{
-                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html');
+                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'');
             }
         }
         else{
@@ -161,12 +161,12 @@ class MainController extends Controller\SuperController
     function lookWhereUsers()
     {
         $userController = $this->userController;
-        $action = $_GET['act'];
+        $action = htmlspecialchars($_GET['act']);
         if ($action == 'login'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $userController->login();
             }else{
-                $userController->goToSite('/var/www/html/core/Access/View/login_view.html');
+                $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'');
             }
         }elseif($action == 'logout'){
             $userController->logout();
@@ -174,7 +174,7 @@ class MainController extends Controller\SuperController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $userController->register();
             }else{
-                $userController->goToSite('/var/www/html/core/Access/View/register_view.html');
+                $userController->goToSite('/var/www/html/core/Access/View/register_view.html' ,'');
             }
         }
     }
