@@ -129,7 +129,7 @@ class MainController extends Controller\SuperController
             }echo 'asdf';
 
         }elseif ($action == 'remove'){
-            $shoppinglist->remove();
+            $shoppinglist->remove($id, $pid);
         }
     }
 

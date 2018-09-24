@@ -8,6 +8,6 @@ $('document').ready(function(){
         document.getElementById('content').style.display = 'none';
     }
 
-    $('#products').searchable();
+    $('#products').select2();
 
 });

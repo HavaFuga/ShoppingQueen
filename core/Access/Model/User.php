@@ -14,9 +14,7 @@ use core\Model\SuperModel;
 class User extends SuperModel
 {
     //Check if User exists and if password is correct
-    function checkInputLogin($input_email, $input_password){
-        $email = $input_email;
-        $password = $input_password;
+    function checkInputLogin($email, $password){
         //get attributes form DB
         if (!$this->connectToDB()){
             die('DB Connection error. UserController.php');

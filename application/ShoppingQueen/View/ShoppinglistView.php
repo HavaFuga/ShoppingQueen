@@ -76,7 +76,7 @@ class ShoppinglistView extends SuperView
         </nav>';
         }
         $viewAll_1 = '<h1 class="d-none title-take">' . $oneShoppinglists[1] . '</h1>';
-        if (isset($oneShoppinglists[3])){ $viewAll_2 = '<h2>CHF ' . $oneShoppinglists[3] . '</h2>';}
+        if (isset($oneShoppinglists[3])){ $viewAll_2 = '<h2>CHF ' . $oneShoppinglists[3] . '</h2>';}else $viewAll_2 = '';
         $viewAll_3 = '<h3>' . $oneShoppinglists[2] . ', ' . $oneShoppinglists[4] .' </h3>
         <ul class="products">{DETAIL_PRODUCTS}</ul>
         <form method="post" action="" >

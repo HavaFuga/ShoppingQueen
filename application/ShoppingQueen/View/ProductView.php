@@ -37,12 +37,13 @@ class ProductView extends SuperView
 
     //generates View from the products for detail shoppinglist
     function viewEditProductsFromList($products){
+        session_start();
         $viewAll = array();
         $result = '';
-        session_start();
-        if (isset($_SESSION['user'])){
+        $sid = $_SESSION['user'];
+        if (isset($sid)){
             foreach ($products as $product) {
-                array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&sid=' . $product[0] . '">
+                array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&pid=' . $product[0] . '&id=' . $sid . '">
                                                     <img src="/themes/images/icons/Orion_bin_red.svg">
                                                 </a><li class="li_editProducts">' . $product[1] . '</li>');
             }
@@ -68,9 +69,9 @@ class ProductView extends SuperView
         </nav>';
         foreach ($products as $product) {
             array_push($viewAll, '<div class="products_view">
-                                                <h2>' . $product[1] . '</h2>
+                                                <h3>' . $product[1] . '</h3>
                                                     <a class="" href="?link=products&act=edit&id=' . $product[0] . '">
-                                                        <img src="/themes/images/icons/Orion_setting_black.svg">
+                                                        <img src="/themes/images/icons/Orion_setting_blue.svg">
                                                     </a> 
                                                     <a class="" href="?link=products&act=delete&id=' . $product[0] . '">
                                                         <img src="/themes/images/icons/Orion_bin_red.svg">

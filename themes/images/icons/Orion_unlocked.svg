@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" aria-labelledby="title"
+aria-describedby="desc" role="img" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <title>Unlocked</title>
+  <desc>A line styled icon from Orion Icon Library.</desc>
+  <path data-name="layer2"
+  d="M19 26.8V15A13 13 0 0 1 32 2a13 13 0 0 1 13 13" fill="none" stroke="#ffffff"
+  stroke-miterlimit="10" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path data-name="layer2" d="M23 24.1V15a9 9 0 0 1 18 0 2 2 0 0 0 4 0"
+  fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="round"
+  stroke-linecap="round"></path>
+  <circle data-name="layer1" cx="32" cy="42" r="20" fill="none" stroke="#ffffff"
+  stroke-miterlimit="10" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></circle>
+  <path data-name="layer1" d="M34 45a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2 2 2 0 0 1 2 2z"
+  fill="none" stroke="#ffffff" stroke-miterlimit="10" stroke-width="2" stroke-linejoin="round"
+  stroke-linecap="round"></path>
+</svg>
