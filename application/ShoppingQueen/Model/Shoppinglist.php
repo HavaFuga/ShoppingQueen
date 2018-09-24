@@ -16,7 +16,7 @@ class Shoppinglist extends SuperModel
     //gets one Shoppinglist from DB
     function getOne($id){
         if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
+            die('DB Connection error. Shoppinglist.php');
         }else {
             try{
                 $conn = $this->connectToDB();
@@ -39,7 +39,7 @@ class Shoppinglist extends SuperModel
     //gets all Shoppinglists from DB
     function getAll(){
         if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
+            die('DB Connection error. Shoppinglist.php');
         }else {
             try{
                 $conn = $this->connectToDB();
@@ -67,7 +67,7 @@ class Shoppinglist extends SuperModel
 
         //create new shoppinglist
         if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
+            die('DB Connection error. Shoppinglist.php');
         }else {
             try{
                 $conn = $this->connectToDB();
@@ -93,7 +93,7 @@ class Shoppinglist extends SuperModel
 
         //edit shoppinglist
         if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
+            die('DB Connection error. Shoppinglist.php');
         }else {
             try{
                 $conn = $this->connectToDB();
@@ -113,7 +113,7 @@ class Shoppinglist extends SuperModel
     //deletes the selected list
     function delete($id){
         if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
+            die('DB Connection error. Shoppinglist.php');
         }else {
             try{
                 $conn = $this->connectToDB();
@@ -132,7 +132,7 @@ class Shoppinglist extends SuperModel
     //add product to the list
     function add($id, $pid){
         if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
+            die('DB Connection error. Shoppinglist.php');
         }else {
             try{
                 $conn = $this->connectToDB();
@@ -141,7 +141,29 @@ class Shoppinglist extends SuperModel
                 $stmt = $conn->prepare($stmt);
                 $stmt->execute();
 
-                //echo 'List added successfully!';
+                //echo 'Product added successfully!';
+                header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+            }
+            catch(\PDOException $e){
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
+    }
+
+    //removes product from list
+    function remove($id, $pid){
+        if (!$this->connectToDB()){
+            die('DB Connection error. Shoppinglist.php');
+        }else {
+            try{
+                $conn = $this->connectToDB();
+                $stmt = 'DELETE FROM Shoppinglist_Product 
+                            WHERE `id` = ' . $id . ' AND `pid` = ' . $pid . ';';
+                $stmt = $conn->prepare($stmt);
+                $stmt->execute();
+
+                //echo 'Product removed successfully!';
+                header('Location: ?link=shoppinglists&act=detail&id=' . $id);
             }
             catch(\PDOException $e){
                 echo 'Connection failed: ' . $e->getMessage();

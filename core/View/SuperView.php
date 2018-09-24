@@ -20,8 +20,9 @@ class SuperView
     //Fills Site Content
     function render($link) {
         $this->index = file_get_contents('/var/www/html/themes/index.html');
-        if (!headers_sent()) {
-            //session_start();
+        if(!isset($_SESSION))
+        {
+            session_start();
         }
         //Checks if User is logged in
         //echo 'session: ' . $_SESSION['user'];

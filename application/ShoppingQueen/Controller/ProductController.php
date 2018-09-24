@@ -8,18 +8,29 @@
 
 namespace application\ShoppingQueen\Controller;
 
+use application\ShoppingQueen\View\ProductView;
+use application\ShoppingQueen\Model\Product;
+
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once __DIR__ . '/../View/ProductView.php';
 include_once __DIR__ . '/../Model/Product.php';
 
+
 class ProductController extends \core\Controller\SuperController
 {
+    protected $productView;
+    protected $product;
+
+    function __construct()
+    {
+        $this->productView = new ProductView();
+        $this->product = new Product();
+    }
 
     //creates overview
     function overview(){
-        //session_start();
-        $product = new \application\ShoppingQueen\Model\Product();
-        $productView = new \application\ShoppingQueen\View\ProductView();
+        $product = $this->product;
+        $productView = $this->productView;
         $allProducts = $product->getAll();
         $viewAll = $productView->viewAll($allProducts);
         $this->printAll($viewAll);
@@ -45,8 +56,8 @@ class ProductController extends \core\Controller\SuperController
 
     //gets the view for edit
     function editview($id){
-        $product = new \application\ShoppingQueen\Model\Product();
-        $productView = new \application\ShoppingQueen\View\ProductView();
+        $product = $this->product;
+        $productView = $this->productView;
         $prod = $product->getOne($id);
         $editProductView = $productView->viewEditProducts($prod);
 

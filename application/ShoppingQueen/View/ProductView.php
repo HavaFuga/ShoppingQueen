@@ -8,8 +8,10 @@
 
 namespace application\ShoppingQueen\View;
 
+use core\View\SuperView;
+include_once '/var/www/html/core/View/SuperView.php';
 
-class ProductView
+class ProductView extends SuperView
 {
     //generates View from the products for detail shoppinglist
     function viewAllFromShoppinglist($products){
@@ -40,9 +42,9 @@ class ProductView
         session_start();
         if (isset($_SESSION['user'])){
             foreach ($products as $product) {
-                array_push($viewAll, '<a class="a_editProducts" href="/application/ShoppingQueen/Controller/ShoppinglistController.php?act=edit&sid=' . $product[0] . '&do=delete">
-                                                <li class="li_editProducts"><img src="/themes/images/icons/Orion_close.svg">' . $product[1] . '</li>
-                                           </a>');
+                array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&sid=' . $product[0] . '">
+                                                    <img src="/themes/images/icons/Orion_bin_red.svg">
+                                                </a><li class="li_editProducts">' . $product[1] . '</li>');
             }
         }
         foreach ($viewAll as $view) {
@@ -59,7 +61,7 @@ class ProductView
             <ul style="">
                 <li class="level-1" style="">
                     <div class="c7n-icon" onclick="location.href=\'?link=products&act=add\'">
-                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_add-circle.svg"></div>
+                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_plus.svg"></div>
                     </div>
                 </li>
             </ul>
@@ -68,10 +70,10 @@ class ProductView
             array_push($viewAll, '<div class="products_view">
                                                 <h2>' . $product[1] . '</h2>
                                                     <a class="" href="?link=products&act=edit&id=' . $product[0] . '">
-                                                        <img src="/themes/images/icons/Orion_edit-window_black.svg">
+                                                        <img src="/themes/images/icons/Orion_setting_black.svg">
                                                     </a> 
                                                     <a class="" href="?link=products&act=delete&id=' . $product[0] . '">
-                                                        <img src="/themes/images/icons/Orion_bin_black.svg">
+                                                        <img src="/themes/images/icons/Orion_bin_red.svg">
                                                     </a>
                                             </div>');
         }

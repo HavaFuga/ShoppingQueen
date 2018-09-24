@@ -8,8 +8,8 @@
 
 namespace application\ShoppingQueen\View;
 
-
 use core\View\SuperView;
+include_once '/var/www/html/core/View/SuperView.php';
 
 class ShoppinglistView extends SuperView
 {
@@ -25,7 +25,7 @@ class ShoppinglistView extends SuperView
             <ul style="">
                 <li class="level-1" style="">
                     <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists\'">
-                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_add-circle.svg"></div>
+                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_plus.svg"></div>
                     </div>
                 </li>
             </ul>
@@ -64,11 +64,11 @@ class ShoppinglistView extends SuperView
             <ul style="">
                 <li class="level-1" style="">
                     <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists&act=edit&id='. $oneShoppinglists[0] .'\'">
-                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_edit-window.svg"></div>
+                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_setting.svg"></div>
                     </div>
                 </li>
                 <li class="level-1" style="">
-                    <div class="c7n-icon" onclick="location.href=\'?link=shoppinglists&act=delete&id='. $oneShoppinglists[0] .'\'">
+                    <div class="c7n-icon delete" onclick="location.href=\'?link=shoppinglists&act=delete&id='. $oneShoppinglists[0] .'\'">
                         <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_bin.svg"></div>
                     </div>
                 </li>
@@ -79,10 +79,13 @@ class ShoppinglistView extends SuperView
         if (isset($oneShoppinglists[3])){ $viewAll_2 = '<h2>CHF ' . $oneShoppinglists[3] . '</h2>';}
         $viewAll_3 = '<h3>' . $oneShoppinglists[2] . ', ' . $oneShoppinglists[4] .' </h3>
         <ul class="products">{DETAIL_PRODUCTS}</ul>
-        <select id="products">
-            <option value="">-</option>
-            {DETAIL_ADD_PRODUCTS}
-        </select> <a class="fa-plus" onclick="location.href=\'?link=shoppinglists&act=add&id='. $oneShoppinglists[0] . '&pid= \' + document.getElementById(\'products\').value + \'" ><i class="fas fa-plus"></i></a>';
+        <form method="post" action="" >
+            <select name="products" id="products">
+                <option value="">-</option>
+                {DETAIL_ADD_PRODUCTS}
+            </select> 
+            <input type="submit" name="submit" value="Add" >
+        </form>';
 
         $result .= $viewAll_1 . $viewAll_2 . $viewAll_3;
         return $result;
@@ -93,7 +96,7 @@ class ShoppinglistView extends SuperView
     function viewOneEdit($shoppinglist){
         $result = '<input type="text" name="name" placeholder="name" value="' . $shoppinglist[1] . '" required><br>
             Cost:<br>
-            CHF <input type="text" name="cost" placeholder="" value="' . $shoppinglist[3] . '"><br><br>';
+            CHF <input type="text" name="cost" placeholder="" value="' . $shoppinglist[3] . '"><br>';
         return $result;
     }
 

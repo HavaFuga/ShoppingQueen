@@ -7,63 +7,52 @@
  */
 namespace application\ShoppingQueen\Controller;
 
+use application\ShoppingQueen\Model\Product;
+use application\ShoppingQueen\Model\Shoppinglist;
 use application\ShoppingQueen\View\ShoppinglistView;
+use application\ShoppingQueen\View\ProductView;
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
-include_once __DIR__ . '/../View/ShoppinglistView.php';
-include_once __DIR__ . '/../Model/Shoppinglist.php';
-include_once __DIR__ . '/../Controller/ProductController.php';
-include_once __DIR__ . '/../View/ProductView.php';
-include_once __DIR__ . '/../Model/Product.php';
+include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
+include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
+include_once '/var/www/html/application/ShoppingQueen/Controller/ProductController.php';
+include_once '/var/www/html/application/ShoppingQueen/View/ProductView.php';
+include_once '/var/www/html/application/ShoppingQueen/Model/Product.php';
 
 class ShoppinglistController extends \core\Controller\SuperController
 {
-    /*
-     * create only one class
-     * also probably in superclass
-     *
-     * protected $shoppinglistController;
     protected $shoppinglistView;
     protected $shoppinglist;
     protected $productController;
     protected $productView;
     protected $product;
-    protected $userController;
-    protected $userView;
-    protected $user;
-
 
     function __construct()
     {
-        $this->shoppinglistController = new ShoppinglistController();
         $this->shoppinglistView = new ShoppinglistView();
         $this->shoppinglist = new Shoppinglist();
         $this->productController = new ProductController();
         $this->productView = new ProductView();
         $this->product = new Product();
-        $this->userController = new UserController();
-        $this->userView = new UserView();
-        $this->user = new User();
+    }
 
-    }*/
 
     //creates overview
     function overview(){
-        $shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist();
-        $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
+        $shoppinglist = $this->shoppinglist;
+        $shoppinglistView = $this->shoppinglistView;
         $allShoppinglists = $shoppinglist->getAll();
         $viewAll = $shoppinglistView->viewAll($allShoppinglists);
         $this->printAll($viewAll);
-
     }
 
     //creates detailview
     function detail($id){
-        $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
-        $productController = new \application\ShoppingQueen\Controller\ProductController();
-        $productView = new \application\ShoppingQueen\View\ProductView();
-        $shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist();
-        $product = new \application\ShoppingQueen\Model\Product();
+        $shoppinglistView = $this->shoppinglistView;
+        $productController = $this->productController;
+        $productView = $this->productView;
+        $shoppinglist = $this->shoppinglist;
+        $product = $this->product;
 
         //gets products
         $products = $product->getAllFromShoppinglist($id);
@@ -77,11 +66,11 @@ class ShoppinglistController extends \core\Controller\SuperController
 
     //creates view for editing informations from shoppinglist
     function editview($id){
-        $shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
-        $productView = new \application\ShoppingQueen\View\ProductView();
-        $productController = new \application\ShoppingQueen\Controller\ProductController();
-        $shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist();
-        $product = new \application\ShoppingQueen\Model\Product();
+        $shoppinglistView = $this->shoppinglistView;
+        $productView = $this->productView;
+        $productController = $this->productController;
+        $shoppinglist = $this->shoppinglist;
+        $product = $this->product;
 
         $list = $shoppinglist->getOne($id);
         $editListView = $shoppinglistView->viewOneEdit($list);
@@ -90,7 +79,6 @@ class ShoppinglistController extends \core\Controller\SuperController
 
         $this->printOneEdit($editListView, $editProductView);
     }
-
 
     //prints all Shoppinglists
     protected $overview;

@@ -6,6 +6,11 @@
  * Time: 08:24
  */
 namespace core;
+
+include 'Controller/SuperController.php';
+
+
+
 use application\ShoppingQueen\Controller\ShoppinglistController;
 use application\ShoppingQueen\Model\Product;
 use application\ShoppingQueen\Model\Shoppinglist;
@@ -16,8 +21,6 @@ use core\Access\Controller\UserController;
 use core\Access\Model\User;
 use core\Access\View\UserView;
 
-
-include 'Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ShoppinglistController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
 include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
@@ -28,33 +31,26 @@ include_once '/var/www/html/core/Access/Controller/UserController.php';
 include_once '/var/www/html/core/Access/View/UserView.php';
 include_once '/var/www/html/core/Access/Model/User.php';
 
+
+
 class MainController extends Controller\SuperController
 {
     protected $shoppinglistController;
-    protected $shoppinglistView;
     protected $shoppinglist;
     protected $productController;
-    protected $productView;
     protected $product;
     protected $userController;
-    protected $userView;
     protected $user;
-
 
     function __construct()
     {
         $this->shoppinglistController = new ShoppinglistController();
-        $this->shoppinglistView = new ShoppinglistView();
         $this->shoppinglist = new Shoppinglist();
         $this->productController = new ProductController();
-        $this->productView = new ProductView();
         $this->product = new Product();
         $this->userController = new UserController();
-        $this->userView = new UserView();
         $this->user = new User();
-
     }
-
 
     function lookWhereToGo($link){
         parse_str($link, $output);
@@ -96,7 +92,13 @@ class MainController extends Controller\SuperController
 
         if ($action == 'detail'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $shoppinglist->add($id, $pid);
+                $pid = $_POST['products'];
+                if ($pid == ''){
+                    header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+                }else{
+                    $shoppinglist->add($id, $pid);
+                    echo 'product successfully added';
+                }
             }else{
                 $shoppinglistController->detail($id);
             }
@@ -120,6 +122,14 @@ class MainController extends Controller\SuperController
 
         }elseif ($action == 'overview'){
             $shoppinglistController->overview();
+
+        }elseif ($action == 'add'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $shoppinglist->add($id);
+            }echo 'asdf';
+
+        }elseif ($action == 'remove'){
+            $shoppinglist->remove();
         }
     }
 
@@ -150,7 +160,6 @@ class MainController extends Controller\SuperController
 
     function lookWhereUsers()
     {
-
         $userController = $this->userController;
         $action = $_GET['act'];
         if ($action == 'login'){
