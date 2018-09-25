@@ -17,8 +17,9 @@ $controller = new \core\Controller\SuperController();
 class SuperView
 {
     protected $index;
+
     //Fills Site Content
-    function render($link ,$alert_message) {
+    function render($link ,$alert_message, $isTrue) {
         $this->index = file_get_contents('/var/www/html/themes/index.html');
         if(!isset($_SESSION))
         {
@@ -42,6 +43,14 @@ class SuperView
             $alert_box = file_get_contents('/var/www/html/themes/alert.html');
             $this->index = str_replace('{ALERT}', $alert_box, $this->index);
             $this->index = str_replace('{MESSAGE}', $alert_message, $this->index);
+
+                if ($isTrue == true){
+                    $this->index = str_replace('{ALERT_TYPE}', 'success', $this->index);
+                }elseif($isTrue == false){
+                    $this->index = str_replace('{ALERT_TYPE}', 'danger', $this->index);
+                }else{
+                    $this->index = str_replace('{ALERT_TYPE}', 'primary', $this->index);
+                }
         }else{
             $this->index = str_replace('{ALERT}', '', $this->index);
         }

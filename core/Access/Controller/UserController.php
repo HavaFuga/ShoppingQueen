@@ -42,7 +42,7 @@ class UserController extends \core\Controller\SuperController
 
         //check Email and Input
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->goToSite('/var/www/html/core/Access/View/login_view.html', 'Invalid email format');
+            $this->goToSite('/var/www/html/core/Access/View/login_view.html', 'Invalid email format', false);
         }else{
             $user->checkInputLogin($email, $password);
         }

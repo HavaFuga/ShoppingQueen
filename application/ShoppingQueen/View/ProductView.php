@@ -36,11 +36,10 @@ class ProductView extends SuperView
     }
 
     //generates View from the products for detail shoppinglist
-    function viewEditProductsFromList($products){
+    function viewEditProductsFromList($products, $sid){
         session_start();
         $viewAll = array();
         $result = '';
-        $sid = $_SESSION['user'];
         if (isset($sid)){
             foreach ($products as $product) {
                 array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&pid=' . $product[0] . '&id=' . $sid . '">

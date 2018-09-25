@@ -8,13 +8,19 @@
 
 namespace core\Access\Model;
 
+include_once '/var/www/html/core/Access/Controller/UserController.php';
 include_once __DIR__ . '/../../../core/Model/SuperModel.php';
 use core\Model\SuperModel;
+use core\Access\Controller\UserController;
 
 class User extends SuperModel
 {
+    protected $userController;
+
     //Check if User exists and if password is correct
     function checkInputLogin($email, $password){
+        $userController = new UserController();
+
         //get attributes form DB
         if (!$this->connectToDB()){
             die('DB Connection error. UserController.php');
@@ -35,12 +41,10 @@ class User extends SuperModel
         $db_email = $result[0][2];
         $db_password = $result[0][3];
         $isAdmin = $result[0][4];
-        if ($db_email != $email || $db_password != $password){
-            $this->goToSite('/var/www/html/core/Access/View/login_view.html');
-            echo ('E-Mail or PW not correct');
+        if ($db_email != $email || $db_password != sha1($password)){
+            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'E-Mail or PW not correct', false);
         }elseif ($isAdmin == 0){
-            $this->goToSite('/var/www/html/core/Access/View/login_view.html');
-            echo 'Sorry, you\'re not an admin. Please report it to the developer.';
+            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' , 'Sorry, you\'re not an admin. Please report it to the developer.', false);
         }else{
             //Starts Login Session
             session_start();
@@ -50,10 +54,8 @@ class User extends SuperModel
     }
 
     //Check if email exists, id passwords are the same
-    function checkInputRegister($input_email, $input_password, $input_password2){
-        $email = $input_email;
-        $password = $input_password;
-        $password2 = $input_password2;
+    function checkInputRegister($email, $password, $password2){
+        $userController = new UserController();
 
         //get Emails form DB
         if (!$this->connectToDB()){
@@ -78,19 +80,21 @@ class User extends SuperModel
             if ($email == $db_email[0]){
                 $isEmailTaken = false;
                 break;
-            }else{
+            }else {
                 $isEmailTaken = true;
             }
         }
 
         //checks if passwords are the same
-        if ($password != $password2){
-            echo ('Passwords are not the same!');
+        if ($isEmailTaken == false){
+            $userController->goToSite('/var/www/html/core/Access/View/register_view.html', 'Sorry, this E-Mail is already taken!', false);
             return false;
-        }elseif ($isEmailTaken == false){
-            echo 'Sorry, this E-Mail is already taken!';
+
+        }elseif ($password != $password2){
+            $userController->goToSite('/var/www/html/core/Access/View/register_view.html', 'Passwords are not the same!', false);
             return false;
         }else{
+            sha1($password);
             return true;
         }
     }
@@ -99,12 +103,13 @@ class User extends SuperModel
     function register(){
         $name = htmlspecialchars($_POST['name']);
         $email = htmlspecialchars($_POST['email']);
-        $password = htmlspecialchars($_POST['password']);
-        $password2 = htmlspecialchars($_POST['password2']);
+        $password = $_POST['password'];
+        $password2 = $_POST['password2'];
+        $userController = new UserController();
 
         //check Email
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            echo ('Invalid E-Mail format!');
+            $userController->goToSite('/var/www/html/core/Access/View/register_view.html','Invalid email format', false);
         }else{
             if ($this->checkInputRegister($email, $password, $password2) == true){
                 //registers new user
@@ -116,7 +121,7 @@ class User extends SuperModel
                         $stmt = 'INSERT INTO User(name, email, password)
                                       VALUES ("' . $name . '", "' . $email .'", "' . $password . '");';
                         $conn->exec($stmt);
-                        echo 'Registration completed successfully!';
+                        $userController->goToSite('/var/www/html/core/Access/View/register_view.html', 'Registration completed successfully!' , true);
                     }
                     catch(PDOException $e){
                         echo 'Connection failed: ' . $e->getMessage();
@@ -125,6 +130,6 @@ class User extends SuperModel
                 }
             }
         }
-        $this->goToSite('/var/www/html/core/Access/View/register_view.html');
+
     }
 }

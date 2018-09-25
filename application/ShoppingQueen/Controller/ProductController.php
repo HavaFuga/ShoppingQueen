@@ -43,7 +43,7 @@ class ProductController extends \core\Controller\SuperController
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_products_view.html');
         $this->overview = str_replace('{OVERVIEW_PRODUCTS}', $viewAll, $this->overview);
         //render overview in index
-        $this->goToSite($this->overview, '');
+        $this->goToSite($this->overview, '', '');
     }
 
     //prints one products for editing
@@ -51,7 +51,7 @@ class ProductController extends \core\Controller\SuperController
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_product_view.html');
         $this->overview = str_replace('{EDIT_CONTENT}', $viewEdit, $this->overview);
         //render Shoppinglist in index
-        $this->goToSite($this->overview, '');
+        $this->goToSite($this->overview, '', '');
     }
 
     //gets the view for edit

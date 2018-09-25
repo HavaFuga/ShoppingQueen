@@ -28,7 +28,7 @@ class SuperModel
 
         try {
             $connection = new \PDO('mysql:host=' . $servername .';dbname=' . $dbname, $username , $password,
-                array("[PDO::MYSQL_ATTR_MULTI_STATEMENTS => false]"));
+                array(\PDO::MYSQL_ATTR_MULTI_STATEMENTS  => false));
             // set the PDO error mode to exception
             $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             //echo 'Connected successfully';

@@ -75,7 +75,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         $list = $shoppinglist->getOne($id);
         $editListView = $shoppinglistView->viewOneEdit($list);
         $products = $product->getAllFromShoppinglist($id);
-        $editProductView = $productView->viewEditProductsFromList($products);
+        $editProductView = $productView->viewEditProductsFromList($products, $id);
 
         $this->printOneEdit($editListView, $editProductView);
     }
@@ -87,7 +87,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_view.html');
         $this->overview = str_replace('{OVERVIEW_SHOPPINGLISTS}', $viewAll, $this->overview);
         //render overview in index
-        $this->goToSite($this->overview, '');
+        $this->goToSite($this->overview, '', '');
     }
 
     //prints detailview from Shoppinglist with Products
@@ -98,7 +98,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         $this->overview = str_replace('{DETAIL_PRODUCTS}', $allProducts, $this->overview);
         $this->overview = str_replace('{DETAIL_ADD_PRODUCTS}', $allOthers, $this->overview);
         //render Shoppinglist in index
-        $this->goToSite($this->overview, '');
+        $this->goToSite($this->overview, '', '');
     }
 
     //prints informations from Shoppinglist for editing
@@ -108,7 +108,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         $this->overview = str_replace('{EDIT_CONTENT}', $viewEdit, $this->overview);
         $this->overview = str_replace('{EDIT_PRODUCTS}', $editProductView, $this->overview);
         //render Shoppinglist in index
-        $this->goToSite($this->overview, '');
+        $this->goToSite($this->overview, '', '');
     }
 
 }

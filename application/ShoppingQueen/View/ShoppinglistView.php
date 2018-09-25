@@ -40,7 +40,7 @@ class ShoppinglistView extends SuperView
             if (!empty($list[3])) {
                 $viewAll_2 = ' - CHF' . $list[3];
             }
-            $viewAll_3 = '</h2>' . $list[2] . ', ' . $list[4] .'</div>
+            $viewAll_3 = '</h2>' . $newDate = date("d.M.Y", strtotime($list[2] )) . ', ' . $list[4] .'</div>
                   </a>
             </div>';
             array_push($viewAll, $viewAll_1 . $viewAll_2 . $viewAll_3);
@@ -53,12 +53,11 @@ class ShoppinglistView extends SuperView
     }
 
 
-    //generates View from one Shoppinglists with the products
+    //generates View for one Shoppinglists with the products
     function viewOne($oneShoppinglists){
         $result='';
 
-        //create icon for adding new list
-        //session_start();
+        //create icon for editing and deleting list
         if (isset($_SESSION['user'])) {
             $result .= '<nav id="clx-dropdown-navigation" class="add_new">
             <ul style="">
@@ -77,14 +76,15 @@ class ShoppinglistView extends SuperView
         }
         $viewAll_1 = '<h1 class="d-none title-take">' . $oneShoppinglists[1] . '</h1>';
         if (isset($oneShoppinglists[3])){ $viewAll_2 = '<h2>CHF ' . $oneShoppinglists[3] . '</h2>';}else $viewAll_2 = '';
-        $viewAll_3 = '<h3>' . $oneShoppinglists[2] . ', ' . $oneShoppinglists[4] .' </h3>
+        $viewAll_3 = '<h3>' . $newDate = date("d.M.Y", strtotime($oneShoppinglists[2])) . ', ' . $oneShoppinglists[4] .' </h3>
         <ul class="products">{DETAIL_PRODUCTS}</ul>
         <form method="post" action="" >
             <select name="products" id="products">
                 <option value="">-</option>
                 {DETAIL_ADD_PRODUCTS}
             </select> 
-            <input type="submit" name="submit" value="Add" >
+            <input type="submit" name="submit" value="Add" ><br><br>
+            <a class="notExist" href=""></a>
         </form>';
 
         $result .= $viewAll_1 . $viewAll_2 . $viewAll_3;

@@ -21,7 +21,8 @@ class Product extends SuperModel
             try{
                 $conn = $this->connectToDB();
                 $stmt = $conn->prepare('SELECT p.id, p.name FROM Product AS p, Shoppinglist_Product AS sp 
-                                                  WHERE sp.sid = ' . $id . ' AND p.id = sp.pid;');
+                                                  WHERE sp.sid = ' . $id . ' AND p.id = sp.pid
+                                                  ORDER BY p.name ASC;');
                 $stmt->execute();
 
                 // set the resulting array to associative
@@ -42,7 +43,8 @@ class Product extends SuperModel
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT id, name FROM Product;');
+                $stmt = $conn->prepare('SELECT id, name FROM Product
+                                                  ORDER BY name ASC;');
                 $stmt->execute();
 
                 // set the resulting array to associative
@@ -86,7 +88,8 @@ class Product extends SuperModel
             try{
                 $conn = $this->connectToDB();
                 $stmt = $conn->prepare('SELECT `id`, `name` FROM `Product` WHERE `id` NOT IN 
-                                                    (SELECT pid FROM Shoppinglist_Product WHERE sid = ' . $id . ');');
+                                                    (SELECT pid FROM Shoppinglist_Product WHERE sid = ' . $id . ')
+                                                    ORDER BY name ASC;');
                 $stmt->execute();
 
                 // set the resulting array to associative
@@ -110,7 +113,7 @@ class Product extends SuperModel
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = 'UPDATE Shoppinglist SET name="' . $name . '" WHERE id ='. $id .';';
+                $stmt = 'UPDATE Product SET name="' . $name . '" WHERE id ='. $id .';';
                 $conn->exec($stmt);
                 //echo 'List edited successfully!';
             }
@@ -146,7 +149,6 @@ class Product extends SuperModel
     function add(){
         $name = $_POST['name'];
 
-        //create new product
         if (!$this->connectToDB()){
             die('DB Connection error. ShoppinglistController.php');
         }else {

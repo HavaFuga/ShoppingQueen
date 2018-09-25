@@ -43,7 +43,9 @@ class Shoppinglist extends SuperModel
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT s.id, s.name, s.date, s.cost, u.name FROM Shoppinglist AS s, User AS u WHERE s.uid = u.id;');
+                $stmt = $conn->prepare('SELECT s.id, s.name, s.date, s.cost, u.name FROM Shoppinglist AS s, User AS u 
+                                                  WHERE s.uid = u.id
+                                                  ORDER BY s.date ASC;');
                 $stmt->execute();
 
                 // set the resulting array to associative
@@ -63,7 +65,7 @@ class Shoppinglist extends SuperModel
         $name = htmlspecialchars($_POST['name']);
         $cost = htmlspecialchars($_POST['cost']);
         $id = $_SESSION['user'];
-        $date = date("d.M.Y");
+        $date = date("Y-m-d");
 
         //create new shoppinglist
         if (!$this->connectToDB()){
@@ -158,7 +160,7 @@ class Shoppinglist extends SuperModel
             try{
                 $conn = $this->connectToDB();
                 $stmt = 'DELETE FROM Shoppinglist_Product 
-                            WHERE `id` = ' . $id . ' AND `pid` = ' . $pid . ';';
+                            WHERE `sid` = ' . $id . ' AND `pid` = ' . $pid . ';';
                 $stmt = $conn->prepare($stmt);
                 $stmt->execute();
 

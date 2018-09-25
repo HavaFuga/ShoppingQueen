@@ -56,8 +56,8 @@ class SuperController
     }
 
     //go to site with link
-    function goToSite($link, $alert_message ){
+    function goToSite($link, $alert_message, $isTrue){
         $view = new SuperView();
-        $view->render($link ,$alert_message);
+        $view->render($link ,$alert_message, $isTrue);
     }
 }

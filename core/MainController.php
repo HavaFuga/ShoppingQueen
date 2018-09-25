@@ -9,8 +9,6 @@ namespace core;
 
 include 'Controller/SuperController.php';
 
-
-
 use application\ShoppingQueen\Controller\ShoppinglistController;
 use application\ShoppingQueen\Model\Product;
 use application\ShoppingQueen\Model\Shoppinglist;
@@ -52,6 +50,7 @@ class MainController extends Controller\SuperController
         $this->user = new User();
     }
 
+    //navigates to site
     function lookWhereToGo($link){
         parse_str($link, $output);
         //echo print_r($output, TRUE);
@@ -76,7 +75,7 @@ class MainController extends Controller\SuperController
         }else{ $pid = 0; }
 
         if ($site == ''){
-            $this->goToSite('/var/www/html/themes/home.html', '');
+            $this->goToSite('/var/www/html/themes/home.html', '', '');
         }elseif ($site == 'shoppinglists'){
             $this->lookWhereShoppinglist($action, $id, $pid);
         }elseif ($site == 'products'){
@@ -86,6 +85,7 @@ class MainController extends Controller\SuperController
         }
     }
 
+    //navigates to action from Shoppinglist
     function lookWhereShoppinglist($action, $id, $pid){
         $shoppinglistController = $this->shoppinglistController;
         $shoppinglist = $this->shoppinglist;
@@ -107,7 +107,7 @@ class MainController extends Controller\SuperController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $shoppinglist->create();
             }else{
-                $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html' , '');
+                $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html' , '', '');
             }
 
         }elseif ($action == 'edit'){
@@ -133,6 +133,7 @@ class MainController extends Controller\SuperController
         }
     }
 
+    //navigates to action from product
     function lookWhereProducts($action, $id){
         $productController = $this->productController;
         $product = $this->product;
@@ -150,7 +151,7 @@ class MainController extends Controller\SuperController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $product->add();
             }else{
-                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'');
+                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'', '');
             }
         }
         else{
@@ -158,23 +159,25 @@ class MainController extends Controller\SuperController
         }
     }
 
+    //navigates to action from User
     function lookWhereUsers()
     {
         $userController = $this->userController;
+        $user = $this->user;
         $action = htmlspecialchars($_GET['act']);
         if ($action == 'login'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $userController->login();
             }else{
-                $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'');
+                $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'', '');
             }
         }elseif($action == 'logout'){
             $userController->logout();
         }elseif ($action == 'register'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $userController->register();
+                $user->register();
             }else{
-                $userController->goToSite('/var/www/html/core/Access/View/register_view.html' ,'');
+                $userController->goToSite('/var/www/html/core/Access/View/register_view.html' ,'', '');
             }
         }
     }
