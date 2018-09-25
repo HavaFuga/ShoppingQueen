@@ -17,7 +17,6 @@ class ProductView extends SuperView
     function viewAllFromShoppinglist($products){
         $viewAll = array();
         $result = '';
-        session_start();
         if (isset($_SESSION['user'])){
             foreach ($products as $product) {
                 array_push($viewAll, '<a href="?link=products">

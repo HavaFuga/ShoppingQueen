@@ -11,14 +11,12 @@ use application\ShoppingQueen\Model\Shoppinglist;
 use application\ShoppingQueen\View\ShoppinglistView;
 use application\ShoppingQueen\View\ProductView;
 use application\ShoppingQueen\Model\Product;
-use core\Access\Model\User;
 
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
-include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
-include_once '/var/www/html/application/ShoppingQueen/Controller/ProductController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ProductView.php';
+include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
 include_once '/var/www/html/application/ShoppingQueen/Model/Product.php';
 include_once '/var/www/html/core/Access/Model/User.php';
 
@@ -26,22 +24,73 @@ include_once '/var/www/html/core/Access/Model/User.php';
 class ShoppinglistController extends \core\Controller\SuperController
 {
     protected $shoppinglistView;
-    protected $shoppinglist;
-    protected $productController;
     protected $productView;
+    protected $shoppinglist;
     protected $product;
     protected $user;
 
     function __construct()
     {
-        $this->shoppinglistView = new ShoppinglistView();
-        $this->shoppinglist = new Shoppinglist();
-        $this->productController = new ProductController();
-        $this->productView = new ProductView();
-        $this->product = new Product();
-        $this->user = new User();
+        $this->shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
+        $this->productView = new \application\ShoppingQueen\View\ProductView();
+        $this->shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist();
+        $this->product = new \application\ShoppingQueen\Model\Product();
+        $this->user = new \core\Access\Model\User();
     }
 
+
+    //navigates to action from Shoppinglist
+    function navigate($action, $id, $pid){
+        $shoppinglist = $this->shoppinglist;
+
+        switch ($action) {
+            case 'detail':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $pid = htmlspecialchars($_POST['products']);
+                    if ($pid == ''){
+                        header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+                    } else {
+                        $shoppinglist->add($id, $pid);
+                        echo 'product successfully added';
+                    }
+                } else {
+                    $this->detail($id);
+                }
+                break;
+
+            case 'create':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $shoppinglist->create();
+                } else {
+                    $this->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html' , '', '');
+                }
+                break;
+            case 'edit':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $shoppinglist->edit($id);
+                } else {
+                    $this->editview($id);
+                }
+                break;
+            case 'delete':
+                $shoppinglist->delete($id);
+                break;
+            case 'overview':
+                $this->overview();
+                break;
+            case 'remove':
+                $shoppinglist->remove($id, $pid);
+                break;
+            case 'missing':
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $this->missing();
+                } else {
+                    $this->goToSite('/var/www/html/application/ShoppingQueen/View/missing_product_view.html' , '', '');
+                }
+                break;
+        }
+
+    }
 
     //creates overview
     function overview(){

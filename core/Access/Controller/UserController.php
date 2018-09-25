@@ -23,6 +23,30 @@ class UserController extends \core\Controller\SuperController
         $this->user = new User();
     }
 
+
+    //navigates to action from User
+    function navigate()
+    {
+        $userController = $this->userController;
+        $user = $this->user;
+        $action = htmlspecialchars($_GET['act']);
+        if ($action == 'login'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $userController->login();
+            }else{
+                $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'', '');
+            }
+        }elseif($action == 'logout'){
+            $userController->logout();
+        }elseif ($action == 'register'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $user->register();
+            }else{
+                $userController->goToSite('/var/www/html/core/Access/View/register_view.html' ,'', '');
+            }
+        }
+    }
+
     //logs out the user
     function logout(){
         session_start();

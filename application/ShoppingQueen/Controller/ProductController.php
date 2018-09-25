@@ -27,6 +27,33 @@ class ProductController extends \core\Controller\SuperController
         $this->product = new Product();
     }
 
+
+    //navigates to action from product
+    function navigate($action, $id){
+        $productController = $this->productController;
+        $product = $this->product;
+        if ($action == 'detail'){
+            $productController->detail($id);
+        }elseif ($action == 'edit'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $product->edit($id);
+            }else{
+                $productController->editview($id);
+            }
+        }elseif ($action == 'delete'){
+            $product->delete($id);
+        }elseif ($action == 'add'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $product->add();
+            }else{
+                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'', '');
+            }
+        }
+        else{
+            $productController->overview();
+        }
+    }
+
     //creates overview
     function overview(){
         $product = $this->product;

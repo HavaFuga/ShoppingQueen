@@ -19,7 +19,7 @@ class SuperView
     protected $index;
 
     //Fills Site Content
-    function render($link ,$alert_message, $isTrue) {
+    function render(String $link , String $alert_message, $isTrue) : void {
         $this->index = file_get_contents('/var/www/html/themes/index.html');
         if(!isset($_SESSION))
         {
