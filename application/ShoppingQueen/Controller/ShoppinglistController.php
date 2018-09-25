@@ -7,10 +7,12 @@
  */
 namespace application\ShoppingQueen\Controller;
 
-use application\ShoppingQueen\Model\Product;
 use application\ShoppingQueen\Model\Shoppinglist;
 use application\ShoppingQueen\View\ShoppinglistView;
 use application\ShoppingQueen\View\ProductView;
+use application\ShoppingQueen\Model\Product;
+use core\Access\Model\User;
+
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
@@ -18,6 +20,8 @@ include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ProductController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ProductView.php';
 include_once '/var/www/html/application/ShoppingQueen/Model/Product.php';
+include_once '/var/www/html/core/Access/Model/User.php';
+
 
 class ShoppinglistController extends \core\Controller\SuperController
 {
@@ -26,6 +30,7 @@ class ShoppinglistController extends \core\Controller\SuperController
     protected $productController;
     protected $productView;
     protected $product;
+    protected $user;
 
     function __construct()
     {
@@ -34,6 +39,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         $this->productController = new ProductController();
         $this->productView = new ProductView();
         $this->product = new Product();
+        $this->user = new User();
     }
 
 
@@ -109,6 +115,26 @@ class ShoppinglistController extends \core\Controller\SuperController
         $this->overview = str_replace('{EDIT_PRODUCTS}', $editProductView, $this->overview);
         //render Shoppinglist in index
         $this->goToSite($this->overview, '', '');
+    }
+
+    //sends an Email to all admins with the missing Product
+    function missing(){
+        $name = htmlspecialchars($_POST['name']);
+        $product = htmlspecialchars($_POST['product']);
+        $user = $this->user;
+        $allAdmins = '';
+        $admins = $user->admins();
+        foreach ($admins as $admin){
+           $allAdmins .= $admin[2] . ', ';
+        }
+        $to = $allAdmins;
+        $subject = 'Missing Product';
+        $message = 'Hello! There\'s a missing product: ' . $product . "\r\n" . 'Pleas create one http://programming.lvh.me/?link=products&act=add';
+        $message = wordwrap($message,70);
+        $headers = "From: webmaster@example.com" . "\r\n" .
+            "CC: somebodyelse@example.com";
+        mail($to, $subject, $message, $headers);
+        $this->goToSite('/var/www/html/application/ShoppingQueen/View/missing_product_view.html', 'Thank you! An E-Mail was sended to the admins.', 'true');
     }
 
 }

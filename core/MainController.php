@@ -130,6 +130,12 @@ class MainController extends Controller\SuperController
 
         }elseif ($action == 'remove'){
             $shoppinglist->remove($id, $pid);
+        }elseif ($action == 'missing'){
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $shoppinglistController->missing();
+            }else{
+                $shoppinglistController->goToSite('/var/www/html/application/ShoppingQueen/View/missing_product_view.html' , '', '');
+            }
         }
     }
 

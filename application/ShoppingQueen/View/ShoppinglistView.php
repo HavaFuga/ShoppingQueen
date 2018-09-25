@@ -84,7 +84,7 @@ class ShoppinglistView extends SuperView
                 {DETAIL_ADD_PRODUCTS}
             </select> 
             <input type="submit" name="submit" value="Add" ><br><br>
-            <a class="notExist" href=""></a>
+            <a class="notExist" href="?link=shoppinglists&act=missing">There\'s a product missing? Click here!</a>
         </form>';
 
         $result .= $viewAll_1 . $viewAll_2 . $viewAll_3;

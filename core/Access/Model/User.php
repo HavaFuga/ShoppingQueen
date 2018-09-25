@@ -94,7 +94,6 @@ class User extends SuperModel
             $userController->goToSite('/var/www/html/core/Access/View/register_view.html', 'Passwords are not the same!', false);
             return false;
         }else{
-            sha1($password);
             return true;
         }
     }
@@ -119,7 +118,7 @@ class User extends SuperModel
                     try{
                         $conn = $this->connectToDB();
                         $stmt = 'INSERT INTO User(name, email, password)
-                                      VALUES ("' . $name . '", "' . $email .'", "' . $password . '");';
+                                      VALUES ("' . $name . '", "' . $email .'", "' . sha1($password) . '");';
                         $conn->exec($stmt);
                         $userController->goToSite('/var/www/html/core/Access/View/register_view.html', 'Registration completed successfully!' , true);
                     }
@@ -131,5 +130,27 @@ class User extends SuperModel
             }
         }
 
+    }
+
+    //gets all users that are admin
+    function admins(){
+        if (!$this->connectToDB()){
+            die('DB Connection error. ProductController.php');
+        }else {
+            try{
+                $conn = $this->connectToDB();
+                $stmt = $conn->prepare('SELECT id, name, email FROM User
+                                                  WHERE isadmin = 1;');
+                $stmt->execute();
+
+                // set the resulting array to associative
+                $admins = $stmt->fetchAll();
+                $conn = null;
+            }
+            catch(PDOException $e){
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            return $admins;
+        }
     }
 }
