@@ -16,13 +16,13 @@ class SuperController
 
     protected $connection;
 
-    function __construct()
+    public function __construct()
     {
         $this->superView = new \core\View\SuperView();
     }
 
     //connect to DB
-    function connectToDB() {
+    protected function connectToDB() {
         if (!is_null($this->connection)) {
             return $this->connection;
         }
@@ -46,13 +46,13 @@ class SuperController
     }
 
     //sends an alert
-    function sendAlert($alert_message){
+    public function sendAlert(String $alert_message){
         $view = new \core\View\SuperView(); //$this->superview;
         $view->alert($alert_message);
     }
 
     //go to site with link
-    function goToSite($link, $alert_message, $isTrue){
+    public function goToSite(String $link, String $alert_message, String $isTrue){
         $view = new \core\View\SuperView(); //$this->superview;
         $view->render($link ,$alert_message, $isTrue);
     }

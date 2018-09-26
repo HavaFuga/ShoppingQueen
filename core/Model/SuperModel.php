@@ -11,7 +11,7 @@ class SuperModel
 {
     protected $connection;
 
-    function connectToDB() {
+    protected function connectToDB() {
 
         if (!is_null($this->connection)) {
             return $this->connection;

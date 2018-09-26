@@ -8,8 +8,6 @@
 
 namespace application\ShoppingQueen\Controller;
 
-use application\ShoppingQueen\View\ProductView;
-use application\ShoppingQueen\Model\Product;
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once __DIR__ . '/../View/ProductView.php';
@@ -18,38 +16,51 @@ include_once __DIR__ . '/../Model/Product.php';
 
 class ProductController extends \core\Controller\SuperController
 {
+    /**
+     * @var \application\ShoppingQueen\View\ProductView
+     */
     protected $productView;
     protected $product;
 
     function __construct()
     {
-        $this->productView = new ProductView();
-        $this->product = new Product();
+        $this->productView = new \application\ShoppingQueen\View\ProductView();
+        $this->product = new \application\ShoppingQueen\Model\Product();
     }
 
 
     //navigates to action from product
-    function navigate($action, $id){
+    function navigate(string $action, int $id){
         $product = $this->product;
-        if ($action == 'detail'){
-            $this->detail($id);
-        }elseif ($action == 'edit'){
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+        switch ($action){
+            case ('detail'):
+                $this->detail($id);
+                break;
+
+            case ('edit'):
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $product->edit($id);
-            }else{
-                $this->editview($id);
-            }
-        }elseif ($action == 'delete'){
-            $product->delete($id);
-        }elseif ($action == 'add'){
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $product->add();
-            }else{
-                $this->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'', '');
-            }
-        }
-        else{
-            $this->overview();
+                }else{
+                    $this->editview($id);
+                }
+                break;
+
+            case ('delete'):
+                $product->delete($id);
+                break;
+
+            case ('add'):
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $product->add();
+                }else{
+                    $this->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'', '');
+                }
+                break;
+
+            case ('overview'):
+                $this->overview();
+                break;
         }
     }
 
@@ -64,7 +75,7 @@ class ProductController extends \core\Controller\SuperController
 
     //prints all products
     protected $overview;
-    function printAll($viewAll) {
+    function printAll(String $viewAll) {
         //render products in overview
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_products_view.html');
         $this->overview = str_replace('{OVERVIEW_PRODUCTS}', $viewAll, $this->overview);
@@ -73,7 +84,7 @@ class ProductController extends \core\Controller\SuperController
     }
 
     //prints one products for editing
-    function printOneEdit($viewEdit){
+    function printOneEdit(String $viewEdit){
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_product_view.html');
         $this->overview = str_replace('{EDIT_CONTENT}', $viewEdit, $this->overview);
         //render Shoppinglist in index
@@ -81,7 +92,7 @@ class ProductController extends \core\Controller\SuperController
     }
 
     //gets the view for edit
-    function editview($id){
+    function editview(int $id){
         $product = $this->product;
         $productView = $this->productView;
         $prod = $product->getOne($id);

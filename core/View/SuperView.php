@@ -15,7 +15,7 @@ class SuperView
     protected $index;
 
     //Fills Site Content
-    function render(String $link , String $alert_message, $isTrue) : void {
+    public function render(String $link , String $alert_message, String $isTrue) : void {
         $this->index = file_get_contents('/var/www/html/themes/index.html');
         if(!isset($_SESSION))
         {
@@ -40,9 +40,9 @@ class SuperView
             $this->index = str_replace('{ALERT}', $alert_box, $this->index);
             $this->index = str_replace('{MESSAGE}', $alert_message, $this->index);
 
-                if ($isTrue == true){
+                if ($isTrue == 'true'){
                     $this->index = str_replace('{ALERT_TYPE}', 'success', $this->index);
-                }elseif($isTrue == false){
+                }elseif($isTrue == 'false'){
                     $this->index = str_replace('{ALERT_TYPE}', 'danger', $this->index);
                 }else{
                     $this->index = str_replace('{ALERT_TYPE}', 'primary', $this->index);
@@ -56,11 +56,7 @@ class SuperView
         echo $this->index;
     }
 
-    function alert($alert_message){
-
-    }
-
-    function getContent($link){
+    protected function getContent(String $link){
         $contentTemplate = file_get_contents($link);
         return $contentTemplate;
     }

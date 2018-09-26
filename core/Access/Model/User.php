@@ -16,7 +16,7 @@ class User extends \core\Model\SuperModel
     protected $userController;
 
     //Check if User exists and if password is correct
-    function checkInputLogin($email, $password){
+    public function checkInputLogin(String $email, String $password){
         $userController = new \core\Access\Controller\UserController();
 
         //get attributes form DB
@@ -25,13 +25,13 @@ class User extends \core\Model\SuperModel
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT id, name, email, password, isAdmin FROM User WHERE email = "' . $email . '";');
+                $stmt = $conn->prepare('SELECT `id`, `name`, `email`, `password`, `isAdmin` FROM `User` WHERE `email` = "' . $email . '";');
                 $stmt->execute();
                 // set the resulting array to associative
                 $result = $stmt->fetchAll();
                 $conn = null;
             }
-            catch(PDOException $e){
+            catch(\PDOException $e){
                 echo 'Connection failed: ' . $e->getMessage();
             }
         }
@@ -40,9 +40,9 @@ class User extends \core\Model\SuperModel
         $db_password = $result[0][3];
         $isAdmin = $result[0][4];
         if ($db_email != $email || $db_password != sha1($password)){
-            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'E-Mail or PW not correct', false);
+            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'E-Mail or PW not correct', 'false');
         }elseif ($isAdmin == 0){
-            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' , 'Sorry, you\'re not an admin. Please report it to the developer.', false);
+            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' , 'Sorry, you\'re not an admin. Please report it to the developer.', 'false');
         }else{
             //Starts Login Session
             session_start();
@@ -52,7 +52,7 @@ class User extends \core\Model\SuperModel
     }
 
     //Check if email exists, id passwords are the same
-    function checkInputRegister($email, $password, $password2){
+    public function checkInputRegister(String $email, String $password, String $password2){
         $userController = new UserController();
 
         //get Emails form DB
@@ -61,14 +61,14 @@ class User extends \core\Model\SuperModel
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT email FROM User;');
+                $stmt = $conn->prepare('SELECT `email` FROM `User`;');
                 $stmt->execute();
 
                 // set the resulting array to associative
                 $result = $stmt->fetchAll();
                 $conn = null;
             }
-            catch(PDOException $e){
+            catch(\PDOException $e){
                 echo 'Connection failed: ' . $e->getMessage();
             }
         }
@@ -97,7 +97,7 @@ class User extends \core\Model\SuperModel
     }
 
     //register a new user
-    function register(){
+    public function register(){
         $name = htmlspecialchars($_POST['name']);
         $email = htmlspecialchars($_POST['email']);
         $password = $_POST['password'];
@@ -115,12 +115,12 @@ class User extends \core\Model\SuperModel
                 }else {
                     try{
                         $conn = $this->connectToDB();
-                        $stmt = 'INSERT INTO User(name, email, password)
+                        $stmt = 'INSERT INTO `User`(`name`, `email`, `password`)
                                       VALUES ("' . $name . '", "' . $email .'", "' . sha1($password) . '");';
                         $conn->exec($stmt);
                         $userController->goToSite('/var/www/html/core/Access/View/register_view.html', 'Registration completed successfully!' , true);
                     }
-                    catch(PDOException $e){
+                    catch(\PDOException $e){
                         echo 'Connection failed: ' . $e->getMessage();
                     }
                     $conn = null;
@@ -131,21 +131,21 @@ class User extends \core\Model\SuperModel
     }
 
     //gets all users that are admin
-    function admins(){
+    public function admins(){
         if (!$this->connectToDB()){
             die('DB Connection error. ProductController.php');
         }else {
             try{
                 $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT id, name, email FROM User
-                                                  WHERE isadmin = 1;');
+                $stmt = $conn->prepare('SELECT `id`, `name`, `email` FROM `User`
+                                                  WHERE `isadmin` = 1;');
                 $stmt->execute();
 
                 // set the resulting array to associative
                 $admins = $stmt->fetchAll();
                 $conn = null;
             }
-            catch(PDOException $e){
+            catch(\PDOException $e){
                 echo 'Connection failed: ' . $e->getMessage();
             }
             return $admins;

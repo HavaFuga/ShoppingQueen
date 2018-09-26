@@ -7,13 +7,22 @@
  */
 namespace core;
 
+/**
+ * @ignore
+ */
 include 'Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ShoppinglistController.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ProductController.php';
 include_once '/var/www/html/core/Access/Controller/UserController.php';
 
-
-
+/**
+ * The Main Class looks where the link leads
+ *
+ * @copyright Comvation AG Thun
+ * @author Hava Fuga <hf@comvation.com>
+ * @package core
+ * @version 1.0.0
+ */
 class MainController extends Controller\SuperController
 {
     protected $shoppinglistController;
@@ -23,15 +32,22 @@ class MainController extends Controller\SuperController
     protected $userController;
     protected $user;
 
-    function __construct()
+    /**
+     * MainController constructor.
+     */
+    public function __construct()
     {
         $this->shoppinglistController = new \application\ShoppingQueen\Controller\ShoppinglistController();
         $this->productController = new \application\ShoppingQueen\Controller\ProductController();
         $this->userController = new \core\Access\Controller\UserController();
     }
 
-    //navigates to site
-    function lookWhereToGo($link){
+
+    /**
+     * @param String $link
+     * gets the param 'link' and navigates to the site
+     */
+    public function lookWhereToGo(String $link){
         parse_str($link, $output);
         //echo print_r($output, TRUE);
 
