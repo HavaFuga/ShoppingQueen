@@ -7,10 +7,6 @@
  */
 namespace core\Controller;
 
-use PDO;
-
-use core\Model\SuperModel;
-use core\View\SuperView;
 include_once '/var/www/html/core/View/SuperView.php';
 
 class SuperController
@@ -22,7 +18,7 @@ class SuperController
 
     function __construct()
     {
-        $this->superView = new SuperView();
+        $this->superView = new \core\View\SuperView();
     }
 
     //connect to DB
@@ -35,15 +31,15 @@ class SuperController
         $password = 'Hallo123';
         $dbname = 'ShoppingQueen';
         try {
-            $connection = new PDO('mysql:host=' . $servername .';dbname=' . $dbname, $username , $password,
+            $connection = new \PDO('mysql:host=' . $servername .';dbname=' . $dbname, $username , $password,
                 array("[PDO::MYSQL_ATTR_MULTI_STATEMENTS => false]"));
             // set the PDO error mode to exception
-            $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             //echo 'Connected successfully';
             $this->connection = $connection;
             return $this->connection;
         }
-        catch(PDOException $e)
+        catch(\PDOException $e)
         {
             echo 'Connection failed: ' . $e->getMessage();
         }
@@ -51,13 +47,13 @@ class SuperController
 
     //sends an alert
     function sendAlert($alert_message){
-        $view = new SuperView();
+        $view = new \core\View\SuperView(); //$this->superview;
         $view->alert($alert_message);
     }
 
     //go to site with link
     function goToSite($link, $alert_message, $isTrue){
-        $view = new SuperView();
+        $view = new \core\View\SuperView(); //$this->superview;
         $view->render($link ,$alert_message, $isTrue);
     }
 }

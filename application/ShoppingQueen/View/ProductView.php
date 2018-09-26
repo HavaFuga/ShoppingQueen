@@ -8,10 +8,9 @@
 
 namespace application\ShoppingQueen\View;
 
-use core\View\SuperView;
 include_once '/var/www/html/core/View/SuperView.php';
 
-class ProductView extends SuperView
+class ProductView extends \core\View\SuperView
 {
     //generates View from the products for detail shoppinglist
     function viewAllFromShoppinglist($products){

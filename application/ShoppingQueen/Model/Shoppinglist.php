@@ -9,9 +9,8 @@
 namespace application\ShoppingQueen\Model;
 
 include_once __DIR__ . '/../../../core/Model/SuperModel.php';
-use core\Model\SuperModel;
 
-class Shoppinglist extends SuperModel
+class Shoppinglist extends \core\Model\SuperModel
 {
     //gets one Shoppinglist from DB
     function getOne($id){

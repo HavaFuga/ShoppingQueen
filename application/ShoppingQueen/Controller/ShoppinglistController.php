@@ -15,6 +15,7 @@ use application\ShoppingQueen\Model\Product;
 
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
+include_once '/var/www/html/application/ShoppingQueen/Controller/ShoppinglistController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ProductView.php';
 include_once '/var/www/html/application/ShoppingQueen/Model/Shoppinglist.php';
 include_once '/var/www/html/application/ShoppingQueen/Model/Product.php';
@@ -25,6 +26,7 @@ class ShoppinglistController extends \core\Controller\SuperController
 {
     protected $shoppinglistView;
     protected $productView;
+    protected $productController;
     protected $shoppinglist;
     protected $product;
     protected $user;
@@ -35,6 +37,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         $this->productView = new \application\ShoppingQueen\View\ProductView();
         $this->shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist();
         $this->product = new \application\ShoppingQueen\Model\Product();
+        $this->productController = new \application\ShoppingQueen\Controller\ProductController();
         $this->user = new \core\Access\Model\User();
     }
 

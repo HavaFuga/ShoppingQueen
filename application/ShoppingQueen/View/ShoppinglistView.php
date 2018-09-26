@@ -8,10 +8,9 @@
 
 namespace application\ShoppingQueen\View;
 
-use core\View\SuperView;
 include_once '/var/www/html/core/View/SuperView.php';
 
-class ShoppinglistView extends SuperView
+class ShoppinglistView extends \core\View\SuperView
 {
     //generates View from all Shoppinglists
     function viewAll($allShoppinglists){
@@ -56,7 +55,7 @@ class ShoppinglistView extends SuperView
     //generates View for one Shoppinglists with the products
     function viewOne($oneShoppinglists){
         $result='';
-
+        session_start();
         //create icon for editing and deleting list
         if (isset($_SESSION['user'])) {
             $result .= '<nav id="clx-dropdown-navigation" class="add_new">

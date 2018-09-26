@@ -7,8 +7,6 @@
  */
 namespace core\Access\Controller;
 
-use core\Access\Model\User;
-
 
 include_once '/var/www/html/core/Access/Model/User.php';
 include_once __DIR__ . '/../../Controller/SuperController.php';
@@ -20,29 +18,28 @@ class UserController extends \core\Controller\SuperController
 
     function __construct()
     {
-        $this->user = new User();
+        $this->user = new \core\Access\Model\User();
     }
 
 
     //navigates to action from User
     function navigate()
     {
-        $userController = $this->userController;
         $user = $this->user;
         $action = htmlspecialchars($_GET['act']);
         if ($action == 'login'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $userController->login();
+                $this->login();
             }else{
-                $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'', '');
+                $this->goToSite('/var/www/html/core/Access/View/login_view.html' ,'', '');
             }
         }elseif($action == 'logout'){
-            $userController->logout();
+            $this->logout();
         }elseif ($action == 'register'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user->register();
             }else{
-                $userController->goToSite('/var/www/html/core/Access/View/register_view.html' ,'', '');
+                $this->goToSite('/var/www/html/core/Access/View/register_view.html' ,'', '');
             }
         }
     }

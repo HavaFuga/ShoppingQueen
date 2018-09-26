@@ -8,7 +8,6 @@
 
 namespace core\Access\View;
 
-
 class UserView extends \core\View\SuperView
 {
 

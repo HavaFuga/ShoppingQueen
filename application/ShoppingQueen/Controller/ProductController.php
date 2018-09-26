@@ -30,15 +30,14 @@ class ProductController extends \core\Controller\SuperController
 
     //navigates to action from product
     function navigate($action, $id){
-        $productController = $this->productController;
         $product = $this->product;
         if ($action == 'detail'){
-            $productController->detail($id);
+            $this->detail($id);
         }elseif ($action == 'edit'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $product->edit($id);
             }else{
-                $productController->editview($id);
+                $this->editview($id);
             }
         }elseif ($action == 'delete'){
             $product->delete($id);
@@ -46,11 +45,11 @@ class ProductController extends \core\Controller\SuperController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $product->add();
             }else{
-                $productController->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'', '');
+                $this->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html' ,'', '');
             }
         }
         else{
-            $productController->overview();
+            $this->overview();
         }
     }
 

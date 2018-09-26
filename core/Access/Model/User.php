@@ -10,16 +10,14 @@ namespace core\Access\Model;
 
 include_once '/var/www/html/core/Access/Controller/UserController.php';
 include_once __DIR__ . '/../../../core/Model/SuperModel.php';
-use core\Model\SuperModel;
-use core\Access\Controller\UserController;
 
-class User extends SuperModel
+class User extends \core\Model\SuperModel
 {
     protected $userController;
 
     //Check if User exists and if password is correct
     function checkInputLogin($email, $password){
-        $userController = new UserController();
+        $userController = new \core\Access\Controller\UserController();
 
         //get attributes form DB
         if (!$this->connectToDB()){
