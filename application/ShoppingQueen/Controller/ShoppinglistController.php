@@ -21,7 +21,7 @@ include_once '/var/www/html/core/Access/Model/User.php';
  * Class ShoppinglistController
  *
  * This Class navigates to method with the param 'act'
- * and controlls some actions
+ * and controlls all the actions that a shoppinglist can do
  * @package application\ShoppingQueen\Controller
  */
 class ShoppinglistController extends \core\Controller\SuperController
@@ -58,7 +58,7 @@ class ShoppinglistController extends \core\Controller\SuperController
 
 
     /**
-     * navigates to action from Shoppinglist
+     * navigates to action from shoppinglist
      *
      * @param String $action
      * @param int $id
@@ -75,7 +75,9 @@ class ShoppinglistController extends \core\Controller\SuperController
                         header('Location: ?link=shoppinglists&act=detail&id=' . $id);
                     } else {
                         $shoppinglist->add($id, $pid);
-                        echo 'product successfully added';
+                        $this->goToSite('/var/www/html/application/ShoppingQueen/View/detail_view.html?link=shoppinglists&act=detail&id=' . $id, 'Product added successfully!', 'true');
+                        //header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+
                     }
                 } else {
                     $this->detail($id);
@@ -117,7 +119,7 @@ class ShoppinglistController extends \core\Controller\SuperController
     }
 
     /**
-     * creates overview from all shoppinglists
+     * creates overview with all shoppinglists
      */
     protected function overview(){
         $shoppinglist = $this->shoppinglist;
@@ -171,7 +173,7 @@ class ShoppinglistController extends \core\Controller\SuperController
 
 
     /**
-     * prints the overview from all shoppinglists to the frontend
+     * prints the overview with all shoppinglists
      * @param String $viewAll
      */
     protected function printAll(String $viewAll) {
@@ -184,7 +186,7 @@ class ShoppinglistController extends \core\Controller\SuperController
 
 
     /**
-     * prints detailview from shoppinglist it's products
+     * prints detailview with shoppinglist and it's products
      *
      * @param String $viewOne
      * @param String $allProducts

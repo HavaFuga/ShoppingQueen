@@ -2,19 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="27bc4351-f12e-44f4-a060-3c39456da875" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_meta" beforeDir="false" afterPath="$PROJECT_DIR$/_meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_meta/getCustomizedFiles.php" beforeDir="false" afterPath="$PROJECT_DIR$/_meta/getCustomizedFiles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/ShoppingQueen/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/ShoppingQueen/Controller/ProductController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/ShoppingQueen/Model/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/ShoppingQueen/Model/Product.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/application/ShoppingQueen/View/ShoppinglistView.php" beforeDir="false" afterPath="$PROJECT_DIR$/application/ShoppingQueen/View/ShoppinglistView.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Access/Controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Access/Controller/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Access/Model/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Access/Model/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Controller/SuperController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Controller/SuperController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/MainController.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/MainController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/Model/SuperModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/Model/SuperModel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/core/View/SuperView.php" beforeDir="false" afterPath="$PROJECT_DIR$/core/View/SuperView.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/themes/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/themes/css/style.css" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,14 +28,14 @@
     <session id="131917487">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="11" />
+          <entry key="project.closed" value="12" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.5" value="2" />
           <entry key="project.open.time.6" value="2" />
           <entry key="project.open.time.7" value="3" />
-          <entry key="project.open.time.8" value="4" />
+          <entry key="project.open.time.8" value="5" />
           <entry key="project.open.time.9" value="1" />
-          <entry key="project.opened" value="13" />
+          <entry key="project.opened" value="14" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.php.new.class">
@@ -50,7 +52,7 @@
           <entry key="jpg" value="1" />
           <entry key="js" value="7" />
           <entry key="mdj" value="1" />
-          <entry key="php" value="287" />
+          <entry key="php" value="330" />
           <entry key="svg" value="29" />
           <entry key="ttf" value="3" />
         </counts>
@@ -61,7 +63,7 @@
           <entry key="HTML" value="90" />
           <entry key="Image" value="2" />
           <entry key="JavaScript" value="7" />
-          <entry key="PHP" value="287" />
+          <entry key="PHP" value="330" />
           <entry key="PLAIN_TEXT" value="5" />
           <entry key="SVG" value="29" />
         </counts>
@@ -71,7 +73,7 @@
           <entry key="css" value="894" />
           <entry key="html" value="839" />
           <entry key="js" value="362" />
-          <entry key="php" value="20920" />
+          <entry key="php" value="23468" />
           <entry key="svg" value="2" />
         </counts>
       </usages-collector>
@@ -80,7 +82,7 @@
           <entry key="CSS" value="894" />
           <entry key="HTML" value="1019" />
           <entry key="JavaScript" value="362" />
-          <entry key="PHP" value="20506" />
+          <entry key="PHP" value="23054" />
           <entry key="SQL" value="234" />
           <entry key="SVG" value="2" />
         </counts>
@@ -89,41 +91,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/core/MainController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Controller/ProductController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-              <folding>
-                <element signature="e#6#84#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Model/Product.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2999">
-              <caret line="202" selection-start-line="202" selection-end-line="202" />
+            <state relative-caret-position="-1080">
+              <caret line="78" column="87" lean-forward="true" selection-start-line="78" selection-start-column="87" selection-end-line="78" selection-end-column="87" />
               <folding>
                 <element signature="e#6#84#0#PHP" expanded="true" />
               </folding>
@@ -132,10 +104,31 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/themes/css/style.css">
+        <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="70" column="1" lean-forward="true" selection-start-line="70" selection-start-column="1" selection-end-line="70" selection-end-column="1" />
+            <state relative-caret-position="282">
+              <caret line="175" column="12" selection-start-line="175" selection-start-column="12" selection-end-line="175" selection-end-column="12" />
+              <folding>
+                <element signature="e#6#84#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Model/Product.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="18">
+              <caret line="15" column="66" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="522">
+              <caret line="123" column="62" selection-start-line="123" selection-start-column="62" selection-end-line="123" selection-end-column="62" />
             </state>
           </provider>
         </entry>
@@ -153,9 +146,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>registrat</find>
-      <find>}else{</find>
-      <find>goTo</find>
       <find>user</find>
       <find>product</find>
       <find>product-&gt;</find>
@@ -178,11 +168,14 @@
       <find>.id</find>
       <find>.name</find>
       <find>`sp.</find>
-      <find>else{</find>
-      <find>}else</find>
-      <find>){</find>
-      <find>try{</find>
       <find>function</find>
+      <find>if(</find>
+      <find>){</find>
+      <find>catch(</find>
+      <find>try{</find>
+      <find>}else</find>
+      <find>else{</find>
+      <find>header</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -227,19 +220,19 @@
         <option value="$PROJECT_DIR$/core/Access/View/register_view.html" />
         <option value="$PROJECT_DIR$/application/ShoppingQueen/View/missing_product_view.html" />
         <option value="$PROJECT_DIR$/core/Access/View/UserView.php" />
-        <option value="$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php" />
-        <option value="$PROJECT_DIR$/application/ShoppingQueen/View/ShoppinglistView.php" />
-        <option value="$PROJECT_DIR$/core/Model/SuperModel.php" />
-        <option value="$PROJECT_DIR$/core/Controller/SuperController.php" />
-        <option value="$PROJECT_DIR$/core/View/SuperView.php" />
-        <option value="$PROJECT_DIR$/core/Access/Model/User.php" />
-        <option value="$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php" />
-        <option value="$PROJECT_DIR$/core/Access/Controller/UserController.php" />
-        <option value="$PROJECT_DIR$/core/MainController.php" />
         <option value="$PROJECT_DIR$/themes/css/style.css" />
-        <option value="$PROJECT_DIR$/application/ShoppingQueen/Controller/ProductController.php" />
-        <option value="$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php" />
+        <option value="$PROJECT_DIR$/application/ShoppingQueen/View/ShoppinglistView.php" />
+        <option value="$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php" />
         <option value="$PROJECT_DIR$/application/ShoppingQueen/Model/Product.php" />
+        <option value="$PROJECT_DIR$/application/ShoppingQueen/Controller/ProductController.php" />
+        <option value="$PROJECT_DIR$/core/View/SuperView.php" />
+        <option value="$PROJECT_DIR$/core/Controller/SuperController.php" />
+        <option value="$PROJECT_DIR$/core/Model/SuperModel.php" />
+        <option value="$PROJECT_DIR$/core/Access/Model/User.php" />
+        <option value="$PROJECT_DIR$/core/MainController.php" />
+        <option value="$PROJECT_DIR$/core/Access/Controller/UserController.php" />
+        <option value="$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php" />
+        <option value="$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php" />
       </list>
     </option>
   </component>
@@ -250,10 +243,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1684" />
-    <option name="y" value="271" />
-    <option name="width" value="1833" />
-    <option name="height" value="900" />
+    <option name="x" value="1987" />
+    <option name="y" value="-2" />
+    <option name="width" value="1717" />
+    <option name="height" value="404" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -275,6 +268,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -299,6 +293,20 @@
               <item name="application" type="462c0819:PsiDirectoryNode" />
               <item name="ShoppingQueen" type="462c0819:PsiDirectoryNode" />
               <item name="Controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="programming" type="b2602c69:ProjectViewProjectNode" />
+              <item name="programming" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="ShoppingQueen" type="462c0819:PsiDirectoryNode" />
+              <item name="Model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="programming" type="b2602c69:ProjectViewProjectNode" />
+              <item name="programming" type="462c0819:PsiDirectoryNode" />
+              <item name="application" type="462c0819:PsiDirectoryNode" />
+              <item name="ShoppingQueen" type="462c0819:PsiDirectoryNode" />
+              <item name="View" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="programming" type="b2602c69:ProjectViewProjectNode" />
@@ -365,7 +373,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -427,12 +434,13 @@
       <workItem from="1537538462572" duration="118000" />
       <workItem from="1537768632080" duration="24263000" />
       <workItem from="1537856287522" duration="20084000" />
-      <workItem from="1537961081087" duration="8428000" />
+      <workItem from="1537961081087" duration="8783000" />
+      <workItem from="1538027814655" duration="4788000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="199218000" />
+    <option name="totallyTimeSpent" value="204361000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -448,15 +456,15 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.16657443" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.16823465" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49197567" weight="0.33582088" />
+      <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49086884" visible="true" weight="0.33582088" />
       <window_info anchor="bottom" id="Database Changes" order="1" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.5052573" side_tool="true" visible="true" weight="0.32929105" />
+      <window_info anchor="bottom" id="Event Log" order="2" sideWeight="0.50913113" side_tool="true" visible="true" weight="0.33582088" />
       <window_info anchor="bottom" id="Version Control" order="3" sideWeight="0.4997233" weight="0.32929105" />
       <window_info anchor="bottom" id="Docker" order="4" show_stripe_button="false" />
       <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" sideWeight="0.49474266" visible="true" weight="0.32929105" />
+      <window_info anchor="bottom" id="Find" order="6" sideWeight="0.49474266" weight="0.32929105" />
       <window_info anchor="bottom" id="Run" order="7" />
       <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
@@ -662,17 +670,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php">
+    <entry file="file://$PROJECT_DIR$/themes/css/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="469">
+          <caret line="70" column="1" selection-start-line="70" selection-start-column="1" selection-end-line="70" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/View/ShoppinglistView.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="180">
+          <caret line="15" column="51" selection-start-line="15" selection-start-column="51" selection-end-line="15" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/View/SuperView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="649">
+          <caret line="36" column="39" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+          <caret line="42" column="36" selection-start-line="42" selection-start-column="36" selection-end-line="42" selection-end-column="36" />
+          <caret line="48" column="34" selection-start-line="48" selection-start-column="34" selection-end-line="48" selection-end-column="34" />
+          <caret line="53" column="39" selection-start-line="53" selection-start-column="39" selection-end-line="53" selection-end-column="39" />
+          <caret line="55" column="46" selection-start-line="55" selection-start-column="46" selection-end-line="55" selection-end-column="46" />
+          <caret line="74" column="48" selection-start-line="74" selection-start-column="48" selection-end-line="74" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/Model/SuperModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="469">
+          <caret line="42" column="14" selection-start-line="42" selection-start-column="14" selection-end-line="42" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/core/Controller/SuperController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="53" column="28" lean-forward="true" selection-start-line="53" selection-start-column="28" selection-end-line="53" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -683,79 +717,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/core/Controller/SuperController.php">
+    <entry file="file://$PROJECT_DIR$/core/Access/Controller/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="487">
-          <caret line="54" column="21" selection-start-line="54" selection-start-column="21" selection-end-line="54" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/Model/SuperModel.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="13" column="14" selection-start-line="13" selection-start-column="14" selection-end-line="13" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/View/SuperView.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
+        <state relative-caret-position="108">
+          <caret line="38" column="4" selection-start-line="38" selection-start-column="4" selection-end-line="38" selection-end-column="4" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/Access/Model/User.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="605">
-          <caret line="140" column="65" selection-start-line="140" selection-start-column="65" selection-end-line="140" selection-end-column="65" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1734">
-          <caret line="166" column="16" lean-forward="true" selection-start-line="166" selection-start-column="16" selection-end-line="166" selection-end-column="16" />
-          <folding>
-            <element signature="e#6#84#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/core/Access/Controller/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="17" column="1" selection-start-line="17" selection-start-column="1" selection-end-line="17" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/themes/css/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="70" column="1" lean-forward="true" selection-start-line="70" selection-start-column="1" selection-end-line="70" selection-end-column="1" />
+        <state relative-caret-position="-788">
+          <caret line="110" column="25" selection-start-line="110" selection-start-column="25" selection-end-line="110" selection-end-column="25" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/core/MainController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="25" column="19" lean-forward="true" selection-start-line="25" selection-start-column="19" selection-end-line="25" selection-end-column="19" />
+        <state relative-caret-position="828">
+          <caret line="93" column="49" selection-start-line="93" selection-start-column="49" selection-end-line="93" selection-end-column="49" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Controller/ProductController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="19" column="55" selection-start-line="19" selection-start-column="55" selection-end-line="19" selection-end-column="55" />
-          <folding>
-            <element signature="e#6#84#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2999">
-          <caret line="202" selection-start-line="202" selection-end-line="202" />
+        <state relative-caret-position="-846">
+          <caret line="17" column="2" lean-forward="true" selection-start-line="17" selection-start-column="2" selection-end-line="17" selection-end-column="2" />
           <folding>
             <element signature="e#6#84#0#PHP" expanded="true" />
           </folding>
@@ -764,8 +750,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Model/Product.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        <state relative-caret-position="18">
+          <caret line="15" column="66" selection-start-line="15" selection-start-column="66" selection-end-line="15" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/View/ProductView.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="123" column="62" selection-start-line="123" selection-start-column="62" selection-end-line="123" selection-end-column="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Model/Shoppinglist.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="282">
+          <caret line="175" column="12" selection-start-line="175" selection-start-column="12" selection-end-line="175" selection-end-column="12" />
+          <folding>
+            <element signature="e#6#84#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/ShoppingQueen/Controller/ShoppinglistController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1080">
+          <caret line="78" column="87" lean-forward="true" selection-start-line="78" selection-start-column="87" selection-end-line="78" selection-end-column="87" />
+          <folding>
+            <element signature="e#6#84#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

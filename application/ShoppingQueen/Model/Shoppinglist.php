@@ -10,9 +10,21 @@ namespace application\ShoppingQueen\Model;
 
 include_once __DIR__ . '/../../../core/Model/SuperModel.php';
 
+/**
+ * Class Shoppinglist
+ *
+ * Has all statements for the table 'Shoppinlist' in the table
+ * @package application\ShoppingQueen\Model
+ */
 class Shoppinglist extends \core\Model\SuperModel
 {
-    //gets one Shoppinglist from DB
+
+    /**
+     * gets one shoppinglist from DB
+     * @param int $id
+     * @return array from shoppinglist
+     * @throws PDOException
+     */
     public function getOne(int $id) {
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
@@ -35,7 +47,12 @@ class Shoppinglist extends \core\Model\SuperModel
         }
     }
 
-    //gets all Shoppinglists from DB
+
+    /**
+     * gets all shoppinglists from DB
+     * @return array with all shoppinglists
+     * @throws PDOException
+     */
     public function getAll() {
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
@@ -58,7 +75,11 @@ class Shoppinglist extends \core\Model\SuperModel
         }
     }
 
-    //creates a new Shoppinglist
+
+    /**
+     * creates a new shoppinglist
+     * @throws PDOException
+     */
     public function create() {
         session_start();
         $name = htmlspecialchars($_POST['name']);
@@ -66,7 +87,6 @@ class Shoppinglist extends \core\Model\SuperModel
         $id = $_SESSION['user'];
         $date = date("Y-m-d");
 
-        //create new shoppinglist
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
         } else {
@@ -83,16 +103,19 @@ class Shoppinglist extends \core\Model\SuperModel
                 echo 'Connection failed: ' . $e->getMessage();
             }
         }
-
         header('Location: ?link=shoppinglists');
     }
 
-    //updates a Shoppinglist
+
+    /**
+     * updates a shoppinglist
+     * @param int $id
+     * @throws PDOException
+     */
     public function edit(int $id) {
         $name = htmlspecialchars($_POST['name']);
         $cost = ($_POST['cost']);
 
-        //edit shoppinglist
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
         } else {
@@ -100,7 +123,6 @@ class Shoppinglist extends \core\Model\SuperModel
                 $conn = $this->connectToDB();
                 $stmt = 'UPDATE `Shoppinglist` SET `name`="' . $name . '", `cost`="' . $cost . '" WHERE `id` ='. $id .';';
                 $conn->exec($stmt);
-                //echo 'List edited successfully!';
             }
             catch(\PDOException $e) {
                 echo 'Connection failed: ' . $e->getMessage();
@@ -111,7 +133,11 @@ class Shoppinglist extends \core\Model\SuperModel
     }
 
 
-    //deletes the selected list
+    /**
+     * deletes a shoppinglist
+     * @param int $id
+     * @throws PDOException
+     */
     public function delete(int $id) {
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
@@ -130,7 +156,13 @@ class Shoppinglist extends \core\Model\SuperModel
         header('Location: ?link=shoppinglists');
     }
 
-    //add product to the list
+
+    /**
+     * adds a products to a shoppinglist
+     * @param int $id
+     * @param int $pid
+     * @throws PDOException
+     */
     public function add(int $id, int $pid) {
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
@@ -141,9 +173,6 @@ class Shoppinglist extends \core\Model\SuperModel
                                       VALUES (' . $id . ', ' . $pid . ');';
                 $stmt = $conn->prepare($stmt);
                 $stmt->execute();
-
-                //echo 'Product added successfully!';
-                header('Location: ?link=shoppinglists&act=detail&id=' . $id);
             }
             catch(\PDOException $e) {
                 echo 'Connection failed: ' . $e->getMessage();
@@ -151,7 +180,13 @@ class Shoppinglist extends \core\Model\SuperModel
         }
     }
 
-    //removes product from list
+
+    /**
+     * removes product from shoppinglist
+     * @param int $id
+     * @param int $pid
+     * @throws PDOException
+     */
     public function remove(int $id, int $pid) {
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');

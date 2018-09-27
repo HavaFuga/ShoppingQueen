@@ -37,19 +37,15 @@ class UserController extends \core\Controller\SuperController
     }
 
 
-
-
     /**
      * @param $action
      * @param $id
      *
      * navigates to action from User
      */
-    public function navigate($action, $id)
+    public function navigate($action)
     {
         $user = $this->user;
-        $action = htmlspecialchars($_GET['act']);
-
 
         if ($action == 'login'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {

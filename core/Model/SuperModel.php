@@ -7,10 +7,19 @@
  */
 namespace core\Model;
 
+/**
+ * Class SuperModel
+ * @package core\Model
+ */
 class SuperModel
 {
     protected $connection;
 
+    /**
+     * creates a connection to the DB
+     * @return \PDO connection
+     * @throws PDOException
+     */
     protected function connectToDB() {
 
         if (!is_null($this->connection)) {
@@ -31,7 +40,7 @@ class SuperModel
             $this->connection = $connection;
             return $this->connection;
         }
-        catch(\PDOException $e)
+        catch (\PDOException $e)
         {
             echo 'Connection failed: ' . $e->getMessage();
         }

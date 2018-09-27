@@ -13,7 +13,7 @@ include_once __DIR__ . '/../../../core/Model/SuperModel.php';
 /**
  * Class Product
  *
- * Has all statements for the table 'Product' in the table
+ * This class has all statements for the table 'Product' in the DB
  * @package application\ShoppingQueen\Model
  */
 class Product extends \core\Model\SuperModel
@@ -21,7 +21,8 @@ class Product extends \core\Model\SuperModel
     /**
      * gets all products from shoppinglist with id
      * @param int $id
-     * @return array
+     * @return dimensional array with all products from a shoppinglist
+     * @throws PDOException
      */
     public function getAllFromShoppinglist(int $id){
         if (!$this->connectToDB()){
@@ -48,7 +49,8 @@ class Product extends \core\Model\SuperModel
 
     /**
      * gets all products
-     * @return array
+     * @return dimensional array with all products
+     * @throws PDOException
      */
     public function getAll(){
         if (!$this->connectToDB()){
@@ -75,7 +77,8 @@ class Product extends \core\Model\SuperModel
     /**
      * gets one product
      * @param int $id
-     * @return array
+     * @return array with one product
+     * @throws PDOException
      */
     public function getOne(int $id){
         if (!$this->connectToDB()){
@@ -101,7 +104,8 @@ class Product extends \core\Model\SuperModel
     /**
      * gets all products except the already selected ones
      * @param int $id
-     * @return array
+     * @return dimensional array with all products that are not in the shoppinlist
+     * @throws PDOException
      */
     public function getAllOthers(int $id){
         if (!$this->connectToDB()){
@@ -129,6 +133,7 @@ class Product extends \core\Model\SuperModel
     /**
      * edits the product
      * @param int $id
+     * @throws PDOException
      */
     public function edit(int $id){
         $name = $_POST['name'];
@@ -155,6 +160,8 @@ class Product extends \core\Model\SuperModel
     /**
      * deletes the selected product
      * @param int $id
+     * @throws PDOException
+     *
      */
     public function delete(int $id){
         if (!$this->connectToDB()){
@@ -177,6 +184,7 @@ class Product extends \core\Model\SuperModel
 
     /**
      * adds a new product
+     * @throws PDOException
      */
     public function add(){
         $name = $_POST['name'];
@@ -190,8 +198,6 @@ class Product extends \core\Model\SuperModel
                                       VALUES ("' . $name . '");';
                 $stmt = $conn->prepare($stmt);
                 $stmt->execute();
-
-                //echo 'Product added successfully!';
             }
             catch(\PDOException $e){
                 echo 'Connection failed: ' . $e->getMessage();

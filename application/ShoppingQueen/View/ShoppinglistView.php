@@ -10,9 +10,21 @@ namespace application\ShoppingQueen\View;
 
 include_once '/var/www/html/core/View/SuperView.php';
 
+/**
+ * Class ShoppinglistView
+ *
+ * This class generates all views for shoppinglists
+ * @package application\ShoppingQueen\View
+ */
 class ShoppinglistView extends \core\View\SuperView
 {
-    //generates View from all Shoppinglists
+
+    /**
+     * generates View with all shoppinglists
+     * @param $allShoppinglists
+     * @return string view with all shoppinglists
+     * @throws PDOException
+     */
     function viewAll($allShoppinglists){
         $viewAll = array();
         $result = '';
@@ -52,7 +64,12 @@ class ShoppinglistView extends \core\View\SuperView
     }
 
 
-    //generates View for one Shoppinglists with the products
+    /**
+     * generates detailview for one shoppinglists with the products
+     * @param $oneShoppinglists
+     * @return string
+     * @throws PDOException
+     */
     function viewOne($oneShoppinglists){
         $result='';
         session_start();
@@ -91,7 +108,12 @@ class ShoppinglistView extends \core\View\SuperView
     }
 
 
-    //creates view for editing list
+    /**
+     * genereates view for editing a shoppinglist
+     * @param $shoppinglist
+     * @return string
+     * @throws PDOException
+     */
     function viewOneEdit($shoppinglist){
         $result = '<input type="text" name="name" placeholder="name" value="' . $shoppinglist[1] . '" required><br>
             Cost:<br>

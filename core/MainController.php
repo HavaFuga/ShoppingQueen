@@ -47,7 +47,7 @@ class MainController extends Controller\SuperController
      * @param String $link
      * gets the param 'link' and navigates to the site
      */
-    public function lookWhereToGo(String $link){
+    public function lookWhereToGo(String $link) {
         parse_str($link, $output);
         //echo print_r($output, TRUE);
 
@@ -61,7 +61,7 @@ class MainController extends Controller\SuperController
         $userController = $this->userController;
 
         /*$params = array('/?link' => 'site', 'act' => 'action', 'id' => 'id', 'pid' => 'pid');
-        foreach ($params as $param => $param_value){
+        foreach ($params as $param => $param_value) {
             if (isset($output[$param])) {
                 $param_value = $output[$param];
             }
@@ -91,7 +91,7 @@ class MainController extends Controller\SuperController
                 $productController->navigate($action, $id);
                 break;
             case 'user':
-                $userController->navigate($action, $id);
+                $userController->navigate($action);
                 break;
         }
     }

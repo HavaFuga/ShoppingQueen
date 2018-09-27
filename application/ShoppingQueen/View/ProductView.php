@@ -10,9 +10,20 @@ namespace application\ShoppingQueen\View;
 
 include_once '/var/www/html/core/View/SuperView.php';
 
+/**
+ * Class ProductView
+ *
+ * This class generates all views for the products
+ * @package application\ShoppingQueen\View
+ */
 class ProductView extends \core\View\SuperView
 {
-    //generates View from the products for detail shoppinglist
+    /**
+     * generates view with the prodcuts for detailview of a shoppinglist
+     * @param $products
+     * @return string view with the listed products
+     * @throws PDOException
+     */
     function viewAllFromShoppinglist($products){
         $viewAll = array();
         $result = '';
@@ -33,7 +44,14 @@ class ProductView extends \core\View\SuperView
         return $result;
     }
 
-    //generates View from the products for detail shoppinglist
+
+    /**
+     * generates view for editing of the products
+     * @param $products
+     * @param $sid
+     * @return string view of product listed with remove icon
+     * @throws PDOException
+     */
     function viewEditProductsFromList($products, $sid){
         session_start();
         $viewAll = array();
@@ -51,7 +69,13 @@ class ProductView extends \core\View\SuperView
         return $result;
     }
 
-    //generates View from the products
+
+    /**
+     * generates view of all products
+     * @param $products
+     * @return string view of all pdroducts
+     * @throws PDOException
+     */
     function viewAll($products){
         $viewAll = array();
         $result = '';
@@ -82,13 +106,24 @@ class ProductView extends \core\View\SuperView
     }
 
 
-    //view for editing product
+    /**
+     * generates view for editing a product
+     * @param $product
+     * @return string view of editing a product
+     * @throws PDOException
+     */
     function viewEditProducts($product){
         $result = '<input type="text" name="name" placeholder="name" value="' . $product[0][0] . '" required>';
         return $result;
     }
 
-    //view for selecting products
+
+    /**
+     * generates view for selecting and adding a product into a shoppinglist
+     * @param $allOtherProducts
+     * @return string of products in a option for the dropdown
+     * @throws PDOException
+     */
     function viewSelect($allOtherProducts){
         $allOthers = '';
         $i = 0;
