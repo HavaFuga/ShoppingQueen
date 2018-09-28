@@ -61,8 +61,8 @@ class ShoppinglistController extends \core\Controller\SuperController
      * navigates to action from shoppinglist
      *
      * @param String $action
-     * @param int $id
-     * @param int $pid
+     * @param int    $id
+     * @param int    $pid
      */
     public function navigate(String $action, int $id, int $pid){
         $shoppinglist = $this->shoppinglist;
@@ -75,8 +75,10 @@ class ShoppinglistController extends \core\Controller\SuperController
                         header('Location: ?link=shoppinglists&act=detail&id=' . $id);
                     } else {
                         $shoppinglist->add($id, $pid);
-                        $this->goToSite('/var/www/html/application/ShoppingQueen/View/detail_view.html?link=shoppinglists&act=detail&id=' . $id, 'Product added successfully!', 'true');
-                        //header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+
+                        $this->detail($id);
+                        //$this->goToSite('/var/www/html/application/ShoppingQueen/View/detail_view.html?link=shoppinglists&act=detail&id=' . $id, 'Product added successfully!', 'true');
+                        header('Location: ?link=shoppinglists&act=detail&id=' . $id);
 
                     }
                 } else {
