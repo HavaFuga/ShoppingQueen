@@ -51,6 +51,7 @@ class ProductController extends \core\Controller\SuperController
             $p = $this->getOne($id);
             $product = new \application\ShoppingQueen\Model\Product($p->id, $p->name);
         }
+        session_start();
 
         switch ($action){
             case ('detail'):
