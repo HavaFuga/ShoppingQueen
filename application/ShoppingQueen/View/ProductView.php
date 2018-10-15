@@ -27,15 +27,16 @@ class ProductView extends \core\View\SuperView
     function viewAllFromShoppinglist($products){
         $viewAll = array();
         $result = '';
+        session_start();
         if (isset($_SESSION['user'])){
             foreach ($products as $product) {
                 array_push($viewAll, '<a href="?link=products">
-                                                <li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product[1] . '</li>
+                                                <li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product->name . '</li>
                                            </a>');
             }
         }else{
             foreach ($products as $product) {
-                array_push($viewAll, '<li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product[1] . '</li>');
+                array_push($viewAll, '<li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product->name . '</li>');
             }
         }
         foreach ($viewAll as $view) {
@@ -58,9 +59,9 @@ class ProductView extends \core\View\SuperView
         $result = '';
         if (isset($sid)){
             foreach ($products as $product) {
-                array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&pid=' . $product[0] . '&id=' . $sid . '">
+                array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&pid=' . $product->id . '&id=' . $sid . '">
                                                     <img src="/themes/images/icons/Orion_bin_red.svg">
-                                                </a><li class="li_editProducts">' . $product[1] . '</li>');
+                                                </a><li class="li_editProducts">' . $product->name . '</li>');
             }
         }
         foreach ($viewAll as $view) {
@@ -113,7 +114,7 @@ class ProductView extends \core\View\SuperView
      * @throws PDOException
      */
     function viewEditProducts($product){
-        $result = '<input type="text" name="name" placeholder="name" value="' . $product[0][0] . '" required>';
+        $result = '<input type="text" name="name" placeholder="name" value="' . $product->name . '" required>';
         return $result;
     }
 

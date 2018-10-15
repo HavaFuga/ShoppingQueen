@@ -33,7 +33,7 @@ class UserController extends \core\Controller\SuperController
      */
     public function __construct()
     {
-        $this->user = new \core\Access\Model\User();
+
     }
 
 
@@ -50,6 +50,7 @@ class UserController extends \core\Controller\SuperController
         if ($action == 'login'){
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $this->login();
+                $this->goToSite('/var/www/html/themes/home.html', '', '');
             }else{
                 $this->goToSite('/var/www/html/core/Access/View/login_view.html' ,'', '');
             }
@@ -89,10 +90,50 @@ class UserController extends \core\Controller\SuperController
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $this->goToSite('/var/www/html/core/Access/View/login_view.html', 'Invalid email format', 'false');
         }else{
-            $user->checkInputLogin($email, $password);
+            $this->checkInputLogin($email, $password);
         }
     }
 
+
+
+    /**
+     * Checks if user exists and if password is correct
+     * @param String $email
+     * @param String $password
+     * @throws PDOException
+     */
+    public function checkInputLogin(String $email, String $password) {
+
+        //get attributes form DB
+        if (!$this->connectToDB()) {
+            die('DB Connection error. UserController.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = $conn->prepare('SELECT `id`, `name`, `email`, `password`, `isAdmin` FROM `User` WHERE `email` = "' . $email . '";');
+                $stmt->execute();
+                // set the resulting array to associative
+                $result = $stmt->fetchAll();
+                $conn = null;
+            }
+            catch (\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
+        //compare with attributes from DB
+        $db_email = $result[0][2];
+        $db_password = $result[0][3];
+        $isAdmin = $result[0][4];
+        if ($db_email != $email || $db_password != sha1($password)) {
+            $this->goToSite('/var/www/html/core/Access/View/login_view.html' ,'E-Mail or PW not correct', 'false');
+        } elseif ($isAdmin == 0) {
+            $this->goToSite('/var/www/html/core/Access/View/login_view.html' , 'Sorry, you\'re not an admin. Please report it to the developer.', 'false');
+        } else {
+            //Starts Login Session
+            session_start();
+            $_SESSION['user'] = $result[0][0];
+        }
+    }
 
 }
 

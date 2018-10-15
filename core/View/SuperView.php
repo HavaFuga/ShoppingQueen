@@ -30,7 +30,7 @@ class SuperView
         $this->index = file_get_contents('/var/www/html/themes/index.html');
         if (!isset($_SESSION))
         {
-            session_start();
+            //session_start();
         }
         //Checks if User is logged in
         //echo 'session: ' . $_SESSION['user'];
@@ -66,6 +66,19 @@ class SuperView
         $this->index = str_replace('{CONTENT_HTML}', $contentTemplate, $this->index);
         echo $this->index;
     }
+
+
+    /**
+     * goes to the site with link
+     * @param String $link
+     * @param String $alert_message
+     * @param String $isTrue
+     */
+    public function goToSite(String $link, String $alert_message, String $isTrue) {
+        $view = new \core\View\SuperView(); //$this->superview;
+        $view->render($link ,$alert_message, $isTrue);
+    }
+
 
     /**
      * checks if the link is a file

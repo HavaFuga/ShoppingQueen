@@ -36,16 +36,36 @@ class SuperController
         $this->superView = new \core\View\SuperView();
     }
 
-
     /**
-     * sends an alert
-     * @param String $alert_message
+     * creates a connection to the DB
+     * @return \PDO connection
+     * @throws PDOException
      */
-    public function sendAlert(String $alert_message) {
-        $view = new \core\View\SuperView(); //$this->superview;
-        $view->alert($alert_message);
-    }
+    protected function connectToDB() {
 
+        if (!is_null($this->connection)) {
+            return $this->connection;
+        }
+
+        $servername = 'db';
+        $username = 'shoppingQueen';
+        $password = 'Hallo123';
+        $dbname = 'ShoppingQueen';
+
+        try {
+            $connection = new \PDO('mysql:host=' . $servername .';dbname=' . $dbname, $username , $password,
+                array(\PDO::MYSQL_ATTR_MULTI_STATEMENTS  => false));
+            // set the PDO error mode to exception
+            $connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            //echo 'Connected successfully';
+            $this->connection = $connection;
+            return $this->connection;
+        }
+        catch (\PDOException $e)
+        {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
+    }
 
     /**
      * goes to the site with link
@@ -54,7 +74,17 @@ class SuperController
      * @param String $isTrue
      */
     public function goToSite(String $link, String $alert_message, String $isTrue) {
+        //session_start();
         $view = new \core\View\SuperView(); //$this->superview;
         $view->render($link ,$alert_message, $isTrue);
+    }
+
+    /**
+     * sends an alert
+     * @param String $alert_message
+     */
+    public function sendAlert(String $alert_message) {
+        $view = new \core\View\SuperView(); //$this->superview;
+        $view->alert($alert_message);
     }
 }

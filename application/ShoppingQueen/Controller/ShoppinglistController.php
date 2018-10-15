@@ -9,6 +9,8 @@ namespace application\ShoppingQueen\Controller;
 
 
 
+use application\ShoppingQueen\Model\Shoppinglist;
+
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once '/var/www/html/application/ShoppingQueen/View/ShoppinglistView.php';
 include_once '/var/www/html/application/ShoppingQueen/Controller/ShoppinglistController.php';
@@ -50,10 +52,10 @@ class ShoppinglistController extends \core\Controller\SuperController
     {
         $this->shoppinglistView = new \application\ShoppingQueen\View\ShoppinglistView();
         $this->productView = new \application\ShoppingQueen\View\ProductView();
-        $this->shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist();
-        $this->product = new \application\ShoppingQueen\Model\Product();
+        //$this->shoppinglist = new
+        //$this->product = new \application\ShoppingQueen\Model\Product();
         $this->productController = new \application\ShoppingQueen\Controller\ProductController();
-        $this->user = new \core\Access\Model\User();
+        //$this->user = new \core\Access\Model\User();
     }
 
 
@@ -65,7 +67,17 @@ class ShoppinglistController extends \core\Controller\SuperController
      * @param int    $pid
      */
     public function navigate(String $action, int $id, int $pid){
-        $shoppinglist = $this->shoppinglist;
+        $productController = $this->productController;
+        if ($id != 0){
+            $sl = $this->getOne($id);
+            $shoppinglist = new \application\ShoppingQueen\Model\Shoppinglist($sl->id, $sl->name, $sl->date, $sl->cost, $sl->userName);
+        }
+        if ($pid != 0){
+            $p = $productController->getOne($pid);
+            $product = new \application\ShoppingQueen\Model\Product($p->id, $p->name);
+        }
+
+
 
         switch ($action) {
             case 'detail':
@@ -74,7 +86,8 @@ class ShoppinglistController extends \core\Controller\SuperController
                     if ($pid == ''){
                         header('Location: ?link=shoppinglists&act=detail&id=' . $id);
                     } else {
-                        $shoppinglist->add($id, $pid);
+                        $product = $productController->getOne($pid);
+                        $shoppinglist->add($product);
 
                         $this->detail($id);
                         //$this->goToSite('/var/www/html/application/ShoppingQueen/View/detail_view.html?link=shoppinglists&act=detail&id=' . $id, 'Product added successfully!', 'true');
@@ -88,14 +101,16 @@ class ShoppinglistController extends \core\Controller\SuperController
 
             case 'create':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $shoppinglist->create();
+                    $this->create();
                 } else {
                     $this->goToSite('/var/www/html/application/ShoppingQueen/View/create_view.html' , '', '');
                 }
                 break;
             case 'edit':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $shoppinglist->edit($id);
+                    $shoppinglist->edit($shoppinglist);
+                    header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+
                 } else {
                     $this->editview($id);
                 }
@@ -121,16 +136,70 @@ class ShoppinglistController extends \core\Controller\SuperController
     }
 
     /**
+     * gets one shoppinglist from DB
+     * @param int $id
+     * @return array from shoppinglist
+     * @throws PDOException
+     */
+    public function getOne(int $id) {
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = $conn->prepare('SELECT s.`id`, s.`name`, s.`date`, s.`cost`, u.`name` as userName
+                                                  FROM `Shoppinglist` AS s, `User` AS u 
+                                                  WHERE s.`uid` = u.`id` AND s.`id` = ' . $id .';');
+                $stmt->execute();
+                $oneShoppinglist = $stmt->fetchObject();
+                $conn = null;
+                //var_dump($result);die();
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            return $oneShoppinglist;
+        }
+    }
+
+
+    /**
+     * gets all shoppinglists from DB
+     * @return array with all shoppinglists
+     * @throws PDOException
+     */
+    public function getAll() {
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = $conn->prepare('SELECT s.`id`, s.`name`, s.`date`, s.`cost`, u.`name` as userName FROM `Shoppinglist` AS s, `User` AS u 
+                                                  WHERE s.`uid` = u.`id`
+                                                  ORDER BY s.`date` ASC;');
+                $stmt->execute();
+                // set the resulting array to associative
+                $result = $stmt->fetchAll(\PDO::FETCH_OBJ);
+                //var_dump($result);die();
+                $conn = null;
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            return $result;
+        }
+    }
+
+
+    /**
      * creates overview with all shoppinglists
      */
     protected function overview(){
-        $shoppinglist = $this->shoppinglist;
         $shoppinglistView = $this->shoppinglistView;
-        $allShoppinglists = $shoppinglist->getAll();
+        $allShoppinglists = $this->getAll();
         $viewAll = $shoppinglistView->viewAll($allShoppinglists);
-        $this->printAll($viewAll);
+        $shoppinglistView->printAll($viewAll);
     }
-
 
     /**
      * creates detailview from one shoppinglist
@@ -144,13 +213,13 @@ class ShoppinglistController extends \core\Controller\SuperController
         $product = $this->product;
 
         //gets products
-        $products = $product->getAllFromShoppinglist($id);
+        $products = $productController->getAllFromShoppinglist($id);
         $allProducts = $productView->viewAllFromShoppinglist($products);
-        $oneShoppinglist = $shoppinglist->getOne($id);
+        $oneShoppinglist = $this->getOne($id);
         $viewOne = $shoppinglistView->viewOne($oneShoppinglist);
-        $allOtherProducts = $product->getAllOthers($id);
+        $allOtherProducts = $productController->getAllOthers($id);
         $allOthers = $productView->viewSelect($allOtherProducts);
-        $this->printOne($viewOne, $allProducts, $allOthers);
+        $shoppinglistView->printOne($viewOne, $allProducts, $allOthers);
     }
 
 
@@ -165,58 +234,12 @@ class ShoppinglistController extends \core\Controller\SuperController
         $shoppinglist = $this->shoppinglist;
         $product = $this->product;
 
-        $list = $shoppinglist->getOne($id);
+        $list = $this->getOne($id);
         $editListView = $shoppinglistView->viewOneEdit($list);
-        $products = $product->getAllFromShoppinglist($id);
+        $products = $productController->getAllFromShoppinglist($id);
         $editProductView = $productView->viewEditProductsFromList($products, $id);
 
-        $this->printOneEdit($editListView, $editProductView);
-    }
-
-
-    /**
-     * prints the overview with all shoppinglists
-     * @param String $viewAll
-     */
-    protected function printAll(String $viewAll) {
-        //render Shoppinglists in overview
-        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_view.html');
-        $this->overview = str_replace('{OVERVIEW_SHOPPINGLISTS}', $viewAll, $this->overview);
-        //render overview in index
-        $this->goToSite($this->overview, '', '');
-    }
-
-
-    /**
-     * prints detailview with shoppinglist and it's products
-     *
-     * @param String $viewOne
-     * @param String $allProducts
-     * @param String $allOthers
-     */
-    protected function printOne(String $viewOne, String $allProducts, String $allOthers){
-        //render detail from Shoppinglist
-        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/detail_view.html');
-        $this->overview = str_replace('{DETAIL_CONTENT}', $viewOne, $this->overview);
-        $this->overview = str_replace('{DETAIL_PRODUCTS}', $allProducts, $this->overview);
-        $this->overview = str_replace('{DETAIL_ADD_PRODUCTS}', $allOthers, $this->overview);
-        //render Shoppinglist in index
-        $this->goToSite($this->overview, '', '');
-    }
-
-
-    /**
-     * prints information from shoppinglist for editing
-     * @param String $viewEdit
-     * @param String $editProductView
-     */
-    protected function printOneEdit(String $viewEdit, String $editProductView){
-        //render detail from Shoppinglist
-        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_view.html');
-        $this->overview = str_replace('{EDIT_CONTENT}', $viewEdit, $this->overview);
-        $this->overview = str_replace('{EDIT_PRODUCTS}', $editProductView, $this->overview);
-        //render Shoppinglist in index
-        $this->goToSite($this->overview, '', '');
+        $shoppinglistView->printOneEdit($editListView, $editProductView);
     }
 
 
@@ -241,6 +264,140 @@ class ShoppinglistController extends \core\Controller\SuperController
             "CC: somebodyelse@example.com";
         mail($to, $subject, $message, $headers);
         $this->goToSite('/var/www/html/application/ShoppingQueen/View/missing_product_view.html', 'Thank you! An E-Mail was sended to the admins.', 'true');
+    }
+
+
+
+
+    /**
+     * creates a new shoppinglist
+     * @throws PDOException
+     */
+    public function create() {
+        session_start();
+        $name = htmlspecialchars($_POST['name']);
+        $cost = htmlspecialchars($_POST['cost']);
+        $id = $_SESSION['user'];
+        $date = date("Y-m-d");
+
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = 'INSERT INTO `Shoppinglist`(`name`, `date`, `cost`, `uid`)
+                                      VALUES ("' . $name . '", "' . $date . '", "' . $cost .'", ' . $id . ');';
+                $stmt = $conn->prepare($stmt);
+                $stmt->execute();
+
+                //echo 'List added successfully!';
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
+        header('Location: ?link=shoppinglists');
+    }
+
+
+    /**
+     * updates a shoppinglist
+     * @param int $id
+     * @throws PDOException
+     */
+    public function edit(int $id) {
+        $name = htmlspecialchars($_POST['name']);
+        $cost = ($_POST['cost']);
+
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = 'UPDATE `Shoppinglist` SET `name`="' . $name . '", `cost`="' . $cost . '" WHERE `id` ='. $id .';';
+                $conn->exec($stmt);
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            $conn = null;
+        }
+        header('Location: ?link=shoppinglists&act=detail&id=' . $id);
+    }
+
+
+    /**
+     * deletes a shoppinglist
+     * @param int $id
+     * @throws PDOException
+     */
+    public function delete(int $id) {
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = 'DELETE FROM `Shoppinglist` WHERE `id` ='. $id .';';
+                $conn->exec($stmt);
+                //echo 'List deleted successfully!';
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+            $conn = null;
+        }
+        header('Location: ?link=shoppinglists');
+    }
+
+
+    /**
+     * adds a products to a shoppinglist
+     * @param int $id
+     * @param int $pid
+     * @throws PDOException
+     */
+    public function add(int $id, int $pid) {
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = 'INSERT INTO `Shoppinglist_Product`(`sid`, `pid`)
+                                      VALUES (' . $id . ', ' . $pid . ');';
+                $stmt = $conn->prepare($stmt);
+                $stmt->execute();
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
+    }
+
+
+    /**
+     * removes product from shoppinglist
+     * @param int $id
+     * @param int $pid
+     * @throws PDOException
+     */
+    public function remove(int $id, int $pid) {
+        if (!$this->connectToDB()) {
+            die('DB Connection error. Shoppinglist.php');
+        } else {
+            try {
+                $conn = $this->connectToDB();
+                $stmt = 'DELETE FROM `Shoppinglist_Product` 
+                            WHERE `sid` = ' . $id . ' AND `pid` = ' . $pid . ';';
+                $stmt = $conn->prepare($stmt);
+                $stmt->execute();
+
+                //echo 'Product removed successfully!';
+                header('Location: ?link=shoppinglists&act=edit&id=' . $id);
+            }
+            catch(\PDOException $e) {
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
     }
 
 }

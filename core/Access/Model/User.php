@@ -23,48 +23,20 @@ class User extends \core\Model\SuperModel
      * @var \ore\Access\Controller\UserController
      */
     protected $userController;
+    protected $id;
+    protected $name;
+    protected $email;
+    protected $password;
+    protected $isAdmin;
 
-    /**
-     * Checks if user exists and if password is correct
-     * @param String $email
-     * @param String $password
-     * @throws PDOException
-     */
-    public function checkInputLogin(String $email, String $password) {
-        $userController = new \core\Access\Controller\UserController();
-
-        //get attributes form DB
-        if (!$this->connectToDB()) {
-            die('DB Connection error. UserController.php');
-        } else {
-            try {
-                $conn = $this->connectToDB();
-                $stmt = $conn->prepare('SELECT `id`, `name`, `email`, `password`, `isAdmin` FROM `User` WHERE `email` = "' . $email . '";');
-                $stmt->execute();
-                // set the resulting array to associative
-                $result = $stmt->fetchAll();
-                $conn = null;
-            }
-            catch (\PDOException $e) {
-                echo 'Connection failed: ' . $e->getMessage();
-            }
-        }
-        //compare with attributes from DB
-        $db_email = $result[0][2];
-        $db_password = $result[0][3];
-        $isAdmin = $result[0][4];
-        if ($db_email != $email || $db_password != sha1($password)) {
-            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' ,'E-Mail or PW not correct', 'false');
-        } elseif ($isAdmin == 0) {
-            $userController->goToSite('/var/www/html/core/Access/View/login_view.html' , 'Sorry, you\'re not an admin. Please report it to the developer.', 'false');
-        } else {
-            //Starts Login Session
-            session_start();
-            $_SESSION['user'] = $result[0][0];
-            header('Location: /');
-        }
+    function __construct(int $id, string $name, string $email, string $password, bool $isAdmin)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->email = $email;
+        $this->password = $password;
+        $this->isAdmin = $isAdmin;
     }
-
 
     /**
      * Checks if email exists and if both passwords are the same
@@ -75,7 +47,7 @@ class User extends \core\Model\SuperModel
      * @throws PDOException
      */
     public function checkInputRegister(String $email, String $password, String $password2) {
-        $userController = new UserController();
+        $userController = $this->userController;
 
         //get Emails form DB
         if (!$this->connectToDB()) {
