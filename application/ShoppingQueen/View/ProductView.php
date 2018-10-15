@@ -19,34 +19,6 @@ include_once '/var/www/html/core/View/SuperView.php';
 class ProductView extends \core\View\SuperView
 {
     /**
-     * generates view with the prodcuts for detailview of a shoppinglist
-     * @param $products
-     * @return string view with the listed products
-     * @throws PDOException
-     */
-    function viewAllFromShoppinglist($products){
-        $viewAll = array();
-        $result = '';
-        session_start();
-        if (isset($_SESSION['user'])){
-            foreach ($products as $product) {
-                array_push($viewAll, '<a href="?link=products">
-                                                <li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product->name . '</li>
-                                           </a>');
-            }
-        }else{
-            foreach ($products as $product) {
-                array_push($viewAll, '<li><img src="/themes/images/icons/Orion_angle-right_pink.png">' . $product->name . '</li>');
-            }
-        }
-        foreach ($viewAll as $view) {
-            $result .= $view;
-        }
-        return $result;
-    }
-
-
-    /**
      * generates view for editing of the products
      * @param $products
      * @param $sid
@@ -54,7 +26,6 @@ class ProductView extends \core\View\SuperView
      * @throws PDOException
      */
     function viewEditProductsFromList($products, $sid){
-        session_start();
         $viewAll = array();
         $result = '';
         if (isset($sid)){

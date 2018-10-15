@@ -1,5 +1,26 @@
 <h1 class="d-none title-take">Shoppinglists</h1>
 <div class="row">
-    {OVERVIEW_SHOPPINGLISTS}
+    <!--BEGIN NAVI-->
+    <nav id="clx-dropdown-navigation" class="add_new">
+        <ul style="">
+            <li class="level-1" style="">
+                <div class="c7n-icon" onclick="location.href='?link=shoppinglists&act=create'">
+                    <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_plus.svg"></div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <!--END NAVI-->
+
+    <!--BEGIN SHOPPINGLISTS-->
+    <div class="col-sm-4 boxes">
+        <a href="?link=shoppinglists&act=detail&id={SHOPPINGLIST_ID}">
+            <div class="color-boxes">
+                <h2>{SHOPPINGLIST_NAME} - CHF{SHOPPINGLIST_COST}</h2>
+                {SHOPPINGLIST_DATE}, {USER_NAME}</div>
+        </a>
+    </div>
+    <!--END SHOPPINGLISTS-->
+    {SHOPPINGLISTS}
 </div>
 

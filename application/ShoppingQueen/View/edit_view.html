@@ -1,7 +1,9 @@
 <h1 class="d-none title-take">Edit</h1>
 <form method="post" action="">
     Name:<br>
-    {EDIT_CONTENT}<br>
+    <input type="text" name="name" placeholder="name" value="{SHOPPINGLIST_NAME}" required><br>
+    Cost:<br>
+    CHF <input type="text" name="cost" placeholder="" value="{SHOPPINGLIST_COST}"><br><br>
     <ul class="ul_editProducts">
         {EDIT_PRODUCTS}
     </ul><br>

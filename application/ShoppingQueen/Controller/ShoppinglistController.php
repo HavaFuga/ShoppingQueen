@@ -78,7 +78,7 @@ class ShoppinglistController extends \core\Controller\SuperController
         }
 
 
-
+        session_start();
         switch ($action) {
             case 'detail':
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -197,8 +197,8 @@ class ShoppinglistController extends \core\Controller\SuperController
     protected function overview(){
         $shoppinglistView = $this->shoppinglistView;
         $allShoppinglists = $this->getAll();
-        $viewAll = $shoppinglistView->viewAll($allShoppinglists);
-        $shoppinglistView->printAll($viewAll);
+        //$viewAll = $shoppinglistView->viewAll($allShoppinglists);
+        $shoppinglistView->printAll($allShoppinglists);
     }
 
     /**
@@ -214,12 +214,11 @@ class ShoppinglistController extends \core\Controller\SuperController
 
         //gets products
         $products = $productController->getAllFromShoppinglist($id);
-        $allProducts = $productView->viewAllFromShoppinglist($products);
         $oneShoppinglist = $this->getOne($id);
-        $viewOne = $shoppinglistView->viewOne($oneShoppinglist);
+        //$viewOne = $shoppinglistView->viewOne($oneShoppinglist);
         $allOtherProducts = $productController->getAllOthers($id);
         $allOthers = $productView->viewSelect($allOtherProducts);
-        $shoppinglistView->printOne($viewOne, $allProducts, $allOthers);
+        $shoppinglistView->printOne($oneShoppinglist, $products, $allOthers);
     }
 
 
@@ -231,15 +230,12 @@ class ShoppinglistController extends \core\Controller\SuperController
         $shoppinglistView = $this->shoppinglistView;
         $productView = $this->productView;
         $productController = $this->productController;
-        $shoppinglist = $this->shoppinglist;
-        $product = $this->product;
 
         $list = $this->getOne($id);
-        $editListView = $shoppinglistView->viewOneEdit($list);
         $products = $productController->getAllFromShoppinglist($id);
         $editProductView = $productView->viewEditProductsFromList($products, $id);
 
-        $shoppinglistView->printOneEdit($editListView, $editProductView);
+        $shoppinglistView->printOneEdit($list, $editProductView);
     }
 
 
@@ -274,7 +270,6 @@ class ShoppinglistController extends \core\Controller\SuperController
      * @throws PDOException
      */
     public function create() {
-        session_start();
         $name = htmlspecialchars($_POST['name']);
         $cost = htmlspecialchars($_POST['cost']);
         $id = $_SESSION['user'];

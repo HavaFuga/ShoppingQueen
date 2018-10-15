@@ -1,1 +1,42 @@
-{DETAIL_CONTENT}
+<!--BEGIN NAVI-->
+<nav id="clx-dropdown-navigation" class="add_new">
+    <ul style="">
+        <li class="level-1" style="">
+            <div class="c7n-icon" onclick="location.href='?link=shoppinglists&act=edit&id={SHOPPINGLIST_ID}'">
+                <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_setting.svg"></div>
+            </div>
+        </li>
+        <li class="level-1" style="">
+            <div class="c7n-icon delete" onclick="location.href='?link=shoppinglists&act=delete&id={SHOPPINGLIST_ID}'">
+                <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_bin.svg"></div>
+            </div>
+        </li>
+    </ul>
+</nav>
+<!--END NAVI-->
+
+<h1 class="d-none title-take">{SHOPPINGLIST_NAME}</h1>
+<h2>CHF {SHOPPINGLIST_COST}</h2>
+<h3>{SHOPPINGLIST_DATE} ,{USER_NAME}</h3>
+<ul class="products">
+    <!--BEGIN PRODUCTS-->
+        <!--BEGIN LOGGEDIN-->
+            <a href="?link=products">
+                <li><img src="/themes/images/icons/Orion_angle-right_pink.png">{PRODUCT_NAME}</li>
+            </a>
+        <!--END LOGGEDIN-->
+
+        <!--BEGIN LOGGEDOUT-->
+            <li><img src="/themes/images/icons/Orion_angle-right_pink.png">{PRODUCT_NAME}</li>
+        <!--END LOGGEDOUT-->
+    <!--END PRODUCTS-->
+    {PRODUCTS}
+</ul>
+<form method="post" action="" >
+    <select name="products" id="products">
+        <option value="">-</option>
+        {DETAIL_ADD_PRODUCTS}
+    </select>
+    <input type="submit" name="submit" value="Add" ><br><br>
+    <a class="notExist" href="?link=shoppinglists&act=missing">There\'s a product missing? Click here!</a>
+</form>

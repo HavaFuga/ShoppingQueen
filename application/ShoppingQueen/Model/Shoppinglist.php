@@ -74,12 +74,15 @@ class Shoppinglist extends \core\Model\SuperModel
      * @throws PDOException
      */
     public function edit($shoppinglist) {
+        $name = htmlspecialchars($_POST['name']);
+        $cost = ($_POST['cost']);
+
         if (!$this->connectToDB()) {
             die('DB Connection error. Shoppinglist.php');
         } else {
             try {
                 $conn = $this->connectToDB();
-                $stmt = 'UPDATE `Shoppinglist` SET `name`="' . $shoppinglist->name . '", `cost`="' . $shoppinglist->cost . '" WHERE `id` ='. $shoppinglist->id .';';
+                $stmt = 'UPDATE `Shoppinglist` SET `name`="' . $name . '", `cost`="' . $cost . '" WHERE `id` ='. $shoppinglist->id .';';
                 $conn->exec($stmt);
             }
             catch(\PDOException $e) {
