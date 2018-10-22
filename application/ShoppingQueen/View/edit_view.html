@@ -5,6 +5,11 @@
     Cost:<br>
     CHF <input type="text" name="cost" placeholder="" value="{SHOPPINGLIST_COST}"><br><br>
     <ul class="ul_editProducts">
+        <!--BEGIN PRODUCTS-->
+            <a class="a_editProducts" href="?link=shoppinglists&act=remove&pid={PRODUCT_ID}&id={SHOPPINGLIST_ID}">
+                <img src="/themes/images/icons/Orion_bin_red.svg">
+            </a><li class="li_editProducts">{PRODUCT_NAME}</li>
+        <!--END PRODUCTS-->
         {EDIT_PRODUCTS}
     </ul><br>
     <input type="submit" value="Submit">

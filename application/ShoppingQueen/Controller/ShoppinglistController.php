@@ -233,9 +233,8 @@ class ShoppinglistController extends \core\Controller\SuperController
 
         $list = $this->getOne($id);
         $products = $productController->getAllFromShoppinglist($id);
-        $editProductView = $productView->viewEditProductsFromList($products, $id);
 
-        $shoppinglistView->printOneEdit($list, $editProductView);
+        $shoppinglistView->printOneEdit($list, $products);
     }
 
 

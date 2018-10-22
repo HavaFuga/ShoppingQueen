@@ -80,7 +80,7 @@ class ShoppinglistView extends \core\View\SuperView
         $this->overview = str_replace('{USER_NAME}', $oneShoppinglists->userName, $this->overview);
 
 
-        preg_match('/<!--BEGIN PRODUCTS(.*?)<!--END PRODUCTS-->/s', $this->overview, $matches);
+        preg_match('/<!--BEGIN PRODUCTS-->(.*?)<!--END PRODUCTS-->/s', $this->overview, $matches);
         $product_place = $matches[0];
 
         //checks if user is logged in
@@ -93,7 +93,6 @@ class ShoppinglistView extends \core\View\SuperView
 
         $product_view = '';
         foreach ($products as $product) {
-            preg_match('/<!--BEGIN PRODUCTS(.*?)<!--END SHOPPINGLISTS-->/s', $this->overview, $matches);
             $product_placeholder = $product_place;
             $product_placeholder = str_replace('{PRODUCT_NAME}', $product->name, $product_placeholder);
             $product_view .= $product_placeholder;
@@ -116,12 +115,28 @@ class ShoppinglistView extends \core\View\SuperView
      * @param String $viewEdit
      * @param String $editProductView
      */
-    public function printOneEdit(Object $shoppinglist, String $editProductView){
+    public function printOneEdit(Object $shoppinglist, array $products){
         //render detail from Shoppinglist
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_view.html');
         $this->overview = str_replace('{SHOPPINGLIST_NAME}', $shoppinglist->name, $this->overview);
         $this->overview = str_replace('{SHOPPINGLIST_COST}', $shoppinglist->cost, $this->overview);
-        $this->overview = str_replace('{EDIT_PRODUCTS}', $editProductView, $this->overview);
+        $this->overview = str_replace('{SHOPPINGLIST_ID}', $shoppinglist->id, $this->overview);
+
+        preg_match('/<!--BEGIN PRODUCTS-->(.*?)<!--END PRODUCTS-->/s', $this->overview, $matches);
+        $product_place = $matches[0];
+
+        //print products
+        $product_view = '';
+        foreach ($products as $product) {
+            $product_placeholder = $product_place;
+            $product_placeholder = str_replace('{PRODUCT_ID}', $product->id, $product_placeholder);
+            $product_placeholder = str_replace('{PRODUCT_NAME}', $product->name, $product_placeholder);
+            $product_view .= $product_placeholder;
+        }
+
+        $this->overview = preg_replace('/<!--BEGIN PRODUCTS-->.*?<!--END PRODUCTS-->/s', '',  $this->overview);
+        $this->overview = str_replace('{EDIT_PRODUCTS}', $product_view, $this->overview);
+
         //render Shoppinglist in index
         $this->goToSite($this->overview, '', '');
     }
