@@ -1,5 +1,25 @@
 <h1 class="d-none title-take">Products</h1>
 <div class="row">
-    {OVERVIEW_PRODUCTS}
+    <!--BEGIN PRODUCTS-->
+    <nav id="clx-dropdown-navigation" class="add_new">
+        <ul style="">
+            <li class="level-1" style="">
+                <div class="c7n-icon" onclick="location.href='?link=products&act=add'">
+                    <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_plus.svg"></div>
+                </div>
+            </li>
+        </ul>
+    </nav>
+    <div class="products_view">
+        <h3>{PRODUCT_NAME}</h3>
+        <a class="" href="?link=products&act=edit&id={PRODUCT_ID}">
+            <img src="/themes/images/icons/Orion_setting_blue.svg">
+        </a>
+        <a class="" href="?link=products&act=delete&id={PRODUCT_ID}">
+            <img src="/themes/images/icons/Orion_bin_red.svg">
+        </a>
+    </div>
+    <!--END PRODUCTS-->
+    {PRODUCTS}
 </div>
 

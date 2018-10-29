@@ -9,6 +9,8 @@
 namespace application\ShoppingQueen\Controller;
 
 
+use application\ShoppingQueen\View\ProductView;
+
 include_once __DIR__ . '/../../../core/Controller/SuperController.php';
 include_once __DIR__ . '/../View/ProductView.php';
 include_once __DIR__ . '/../Model/Product.php';
@@ -50,6 +52,7 @@ class ProductController extends \core\Controller\SuperController
         if ($id != 0){
             $p = $this->getOne($id);
             $product = new \application\ShoppingQueen\Model\Product($p->id, $p->name);
+            $productView = $this->productView;
         }
         session_start();
 
@@ -62,7 +65,8 @@ class ProductController extends \core\Controller\SuperController
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $product->edit($id);
                 }else{
-                    $this->editview($id);
+                    $product = $this->getOne($id);
+                    $productView->editview($product);
                 }
                 break;
 
@@ -72,7 +76,7 @@ class ProductController extends \core\Controller\SuperController
 
             case ('add'):
                 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                    $this->add();
+                    $product->add();
                     $this->overview();
                 } else {
                     $this->goToSite('/var/www/html/application/ShoppingQueen/View/create_product_view.html', '', '');
@@ -85,57 +89,17 @@ class ProductController extends \core\Controller\SuperController
         }
     }
 
-    //creates overview
 
     /**
      * creates overview with products
      */
     function overview(){
-        $product = $this->product;
         $productView = $this->productView;
         $allProducts = $this->getAll();
-        $viewAll = $productView->viewAll($allProducts);
-        $this->printAll($viewAll);
+        //$viewAll = $productView->viewAll($allProducts);
+        $productView->printAll($allProducts);
     }
 
-    //prints all products
-
-    /**
-     * prints the overview with all products
-     */
-    function printAll(String $viewAll) {
-        //render products in overview
-        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_products_view.html');
-        $this->overview = str_replace('{OVERVIEW_PRODUCTS}', $viewAll, $this->overview);
-        //render overview in index
-        $this->goToSite($this->overview, '', '');
-    }
-
-    /**
-     * prints one product for editing
-     * @param String $viewEdit
-     */
-    function printOneEdit(String $viewEdit){
-        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_product_view.html');
-        $this->overview = str_replace('{EDIT_CONTENT}', $viewEdit, $this->overview);
-        //render Shoppinglist in index
-        $this->goToSite($this->overview, '', '');
-    }
-
-    //gets the view for edit
-
-    /**
-     * gets the view for editing a product
-     * @param int $id
-     */
-    function editview(int $id){
-        $product = $this->product;
-        $productView = $this->productView;
-        $prod = $this->getOne($id);
-        $editProductView = $productView->viewEditProducts($prod);
-
-        $this->printOneEdit($editProductView);
-    }
 
     /**
      * gets one product
@@ -209,7 +173,7 @@ class ProductController extends \core\Controller\SuperController
                 $stmt->execute();
 
                 // set the resulting array to associative
-                $products = $stmt->fetchAll();
+                $products = $stmt->fetchAll(\PDO::FETCH_OBJ);
                 $conn = null;
             }
             catch(\PDOException $e){
@@ -238,38 +202,13 @@ class ProductController extends \core\Controller\SuperController
                 $stmt->execute();
 
                 // set the resulting array to associative
-                $products = $stmt->fetchAll();
+                $products = $stmt->fetchAll(\PDO::FETCH_OBJ);
                 $conn = null;
             }
             catch(\PDOException $e){
                 echo 'Connection failed: ' . $e->getMessage();
             }
             return $products;
-        }
-    }
-
-
-
-    /**
-     * adds a new product
-     * @throws PDOException
-     */
-    public function add(){
-        $name = $_POST['name'];
-
-        if (!$this->connectToDB()){
-            die('DB Connection error. ShoppinglistController.php');
-        } else {
-            try{
-                $conn = $this->connectToDB();
-                $stmt = 'INSERT INTO `Product`(`name`)
-                                      VALUES ("' . $name . '");';
-                $stmt = $conn->prepare($stmt);
-                $stmt->execute();
-            }
-            catch(\PDOException $e){
-                echo 'Connection failed: ' . $e->getMessage();
-            }
         }
     }
 

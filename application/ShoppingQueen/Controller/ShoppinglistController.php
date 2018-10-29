@@ -197,7 +197,6 @@ class ShoppinglistController extends \core\Controller\SuperController
     protected function overview(){
         $shoppinglistView = $this->shoppinglistView;
         $allShoppinglists = $this->getAll();
-        //$viewAll = $shoppinglistView->viewAll($allShoppinglists);
         $shoppinglistView->printAll($allShoppinglists);
     }
 
@@ -215,10 +214,9 @@ class ShoppinglistController extends \core\Controller\SuperController
         //gets products
         $products = $productController->getAllFromShoppinglist($id);
         $oneShoppinglist = $this->getOne($id);
-        //$viewOne = $shoppinglistView->viewOne($oneShoppinglist);
         $allOtherProducts = $productController->getAllOthers($id);
-        $allOthers = $productView->viewSelect($allOtherProducts);
-        $shoppinglistView->printOne($oneShoppinglist, $products, $allOthers);
+        //$allOthers = $productView->viewSelect($allOtherProducts);
+        $shoppinglistView->printOne($oneShoppinglist, $products, $allOtherProducts);
     }
 
 

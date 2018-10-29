@@ -33,7 +33,6 @@ class ShoppinglistView extends \core\View\SuperView
             $this->overview = preg_replace('/<!--BEGIN NAVI-->.*?<!--END NAVI-->/s','',$this->overview );
         }
 
-        //
         $shoppinglist_view = '';
         foreach ($allShoppinglists as $list) {
             preg_match('/<!--BEGIN SHOPPINGLISTS-->(.*?)<!--END SHOPPINGLISTS-->/s', $this->overview, $matches);
@@ -63,7 +62,7 @@ class ShoppinglistView extends \core\View\SuperView
      * @param String $allProducts
      * @param String $allOthers
      */
-    public function printOne(Object $oneShoppinglists, array $products, String $allOthers){
+    public function printOne(Object $oneShoppinglists, array $products, array $allOtherProducts){
         //render detail from Shoppinglist
         $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/detail_view.html');
 
@@ -101,8 +100,19 @@ class ShoppinglistView extends \core\View\SuperView
         $this->overview = preg_replace('/<!--BEGIN PRODUCTS-->.*?<!--END PRODUCTS-->/s', '',  $this->overview);
         $this->overview = str_replace('{PRODUCTS}', $product_view, $this->overview);
 
+        //Show product one can select
+        $otherProduct_view = '';
+        foreach ($allOtherProducts as $otherProduct) {
+            preg_match('/<!--BEGIN SELECT_PRODUCTS-->(.*?)<!--END SELECT_PRODUCTS-->/s', $this->overview, $matchesSelect);
+            $select_product_place = $matchesSelect[0];
 
-        $this->overview = str_replace('{DETAIL_ADD_PRODUCTS}', $allOthers, $this->overview);
+            $select_product_place = str_replace('{PRODUCT_NAME}', $otherProduct->name, $select_product_place);
+            $select_product_place = str_replace('{PRODUCT_ID}', $otherProduct->id, $select_product_place);
+            $otherProduct_view .= $select_product_place;
+        }
+
+        $this->overview = preg_replace('/<!--BEGIN SELECT_PRODUCTS-->.*?<!--END SELECT_PRODUCTS-->/s', '',  $this->overview);
+        $this->overview = str_replace('{DETAIL_ADD_PRODUCTS}', $otherProduct_view, $this->overview);
 
         //render Shoppinglist in index
         $this->goToSite($this->overview, '', '');

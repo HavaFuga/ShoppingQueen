@@ -35,6 +35,9 @@
 <form method="post" action="" >
     <select name="products" id="products">
         <option value="">-</option>
+        <!--BEGIN SELECT_PRODUCTS-->
+            <option value="{PRODUCT_ID}">{PRODUCT_NAME}</option>'
+        <!--END SELECT_PRODUCTS-->
         {DETAIL_ADD_PRODUCTS}
     </select>
     <input type="submit" name="submit" value="Add" ><br><br>

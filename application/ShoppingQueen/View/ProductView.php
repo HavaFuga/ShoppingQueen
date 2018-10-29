@@ -19,90 +19,46 @@ include_once '/var/www/html/core/View/SuperView.php';
 class ProductView extends \core\View\SuperView
 {
     /**
-     * generates view for editing of the products
-     * @param $products
-     * @param $sid
-     * @return string view of product listed with remove icon
-     * @throws PDOException
+     * prints the overview with all products
      */
-    function viewEditProductsFromList($products, $sid){
-        $viewAll = array();
-        $result = '';
-        if (isset($sid)){
-            foreach ($products as $product) {
-                array_push($viewAll, '<a class="a_editProducts" href="?link=shoppinglists&act=remove&pid=' . $product->id . '&id=' . $sid . '">
-                                                    <img src="/themes/images/icons/Orion_bin_red.svg">
-                                                </a><li class="li_editProducts">' . $product->name . '</li>');
-            }
-        }
-        foreach ($viewAll as $view) {
-            $result .= $view;
-        }
-        return $result;
-    }
+    function printAll(array $products) {
+        //render products in overview
+        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/overview_products_view.html');
 
-
-    /**
-     * generates view of all products
-     * @param $products
-     * @return string view of all pdroducts
-     * @throws PDOException
-     */
-    function viewAll($products){
-        $viewAll = array();
-        $result = '';
-        $result .= '<nav id="clx-dropdown-navigation" class="add_new">
-            <ul style="">
-                <li class="level-1" style="">
-                    <div class="c7n-icon" onclick="location.href=\'?link=products&act=add\'">
-                        <div class="shadow add_new_shadow"><img class="fa" src="/themes/images/icons/Orion_plus.svg"></div>
-                    </div>
-                </li>
-            </ul>
-        </nav>';
+        $product_view = '';
         foreach ($products as $product) {
-            array_push($viewAll, '<div class="products_view">
-                                                <h3>' . $product[1] . '</h3>
-                                                    <a class="" href="?link=products&act=edit&id=' . $product[0] . '">
-                                                        <img src="/themes/images/icons/Orion_setting_blue.svg">
-                                                    </a> 
-                                                    <a class="" href="?link=products&act=delete&id=' . $product[0] . '">
-                                                        <img src="/themes/images/icons/Orion_bin_red.svg">
-                                                    </a>
-                                            </div>');
+            preg_match('/<!--BEGIN PRODUCTS-->.*?<!--END PRODUCTS-->/s', $this->overview, $matches);
+            $product_placeholder = $matches[0];
+
+            $product_placeholder = str_replace('{PRODUCT_ID}', $product->id, $product_placeholder);
+            $product_placeholder = str_replace('{PRODUCT_NAME}', $product->name, $product_placeholder);
+            $product_view .= $product_placeholder;
         }
-        foreach ($viewAll as $view) {
-            $result .= $view;
-        }
-        return $result;
+
+        $this->overview = preg_replace('/<!--BEGIN PRODUCTS-->.*?<!--END PRODUCTS-->/s', '',  $this->overview);
+        $this->overview = str_replace('{PRODUCTS}', $product_view, $this->overview);
+        //render overview in index
+        $this->goToSite($this->overview, '', '');
     }
 
 
     /**
-     * generates view for editing a product
-     * @param $product
-     * @return string view of editing a product
-     * @throws PDOException
+     * prints one product for editing
+     * @param String $viewEdit
      */
-    function viewEditProducts($product){
-        $result = '<input type="text" name="name" placeholder="name" value="' . $product->name . '" required>';
-        return $result;
+    function printOneEdit(Object $product){
+        $this->overview = file_get_contents('/var/www/html/application/ShoppingQueen/View/edit_product_view.html');
+        $this->overview = str_replace('{PRODUCT_NAME}', $product->name, $this->overview);
+        //render Shoppinglist in index
+        $this->goToSite($this->overview, '', '');
     }
 
 
     /**
-     * generates view for selecting and adding a product into a shoppinglist
-     * @param $allOtherProducts
-     * @return string of products in a option for the dropdown
-     * @throws PDOException
+     * gets the view for editing a product
+     * @param int $id
      */
-    function viewSelect($allOtherProducts){
-        $allOthers = '';
-        $i = 0;
-        foreach ($allOtherProducts as $product){
-            $allOthers .= '<option value="' . $product[0] . '">' . $product[1] . '</option>';
-            $i + 1;
-        }
-        return $allOthers;
+    function editview(Object $product){
+        $this->printOneEdit($product);
     }
 }

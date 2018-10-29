@@ -79,4 +79,27 @@ class Product extends \core\Model\SuperModel
         header('Location: ?link=products');
     }
 
+    /**
+     * adds a new product
+     * @throws PDOException
+     */
+    public function add(){
+        $name = $_POST['name'];
+
+        if (!$this->connectToDB()){
+            die('DB Connection error. ShoppinglistController.php');
+        } else {
+            try{
+                $conn = $this->connectToDB();
+                $stmt = 'INSERT INTO `Product`(`name`)
+                                      VALUES ("' . $name . '");';
+                $stmt = $conn->prepare($stmt);
+                $stmt->execute();
+            }
+            catch(\PDOException $e){
+                echo 'Connection failed: ' . $e->getMessage();
+            }
+        }
+    }
+
 }

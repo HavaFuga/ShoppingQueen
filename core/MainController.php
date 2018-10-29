@@ -49,7 +49,6 @@ class MainController extends Controller\SuperController
      */
     public function lookWhereToGo(String $link) {
         parse_str($link, $output);
-        //echo print_r($output, TRUE);
 
         $site = '';
         $action = 'overview';
@@ -82,6 +81,7 @@ class MainController extends Controller\SuperController
 
         switch ($site) {
             case '':
+                session_start();
                 $this->goToSite('/var/www/html/themes/home.html', '', '');
                 break;
             case 'shoppinglists':
